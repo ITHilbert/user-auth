@@ -3,18 +3,29 @@ Benutzerverwaltung mit Rollen und Rechten.
 
 ## Vorraussetzungen
 ```
-composer require nwidart/laravel-modules
-composer require joshbrw/laravel-module-installer
+composer require ithilbert/laravel-kit
+https://github.com/yajra/laravel-datatables
 ```
 
 ## Install
 ```
-composer require ithilbert/userauth-module
+composer require ithilbert/user-auth
 
-php artisan module:migrate Userauth
-php artisan module:seed Userauth
-php artisan module:publish Userauth
+//Daten kopieren
+php artisan vendor:publish --provider="ITHilbert\UserAuth\UserAuthServiceProvider"
+
+//Tabellen erstellen
+php artisan migrate
+
+//Daten einspielen
+php artisan db:seed --class="ITHilbert\UserAuth\Database\Seeders\DatabaseSeeder"
+
 ```
+
+## Benutzer
+User: admin@admin.com
+Password: password
+
 
 ## ToDo
 - Passwort vergessen

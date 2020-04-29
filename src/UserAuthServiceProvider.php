@@ -24,13 +24,24 @@ class UserAuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        /* $this->registerTranslations();
+        $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
-        $this->registerFactories();
-        $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
-        $this->registerCommands(); */
+        /* $this->registerFactories(); */
+        $this->loadMigrationsFrom(__DIR__ . '/Database/Migrations');
 
+        /* $this->registerCommands();  */
+        $this->registerRoutes();
+    }
+
+    /**
+     * Register Routes.
+     *
+     * @return void
+     */
+    protected function registerRoutes()
+    {
+        $this->loadRoutesFrom(__DIR__ . '/Routes/web.php');
     }
 
     /**
@@ -60,10 +71,11 @@ class UserAuthServiceProvider extends ServiceProvider
      */
     protected function registerConfig()
     {
-        /* $this->publishes([
-            module_path($this->moduleName, 'Config/config.php') => config_path($this->moduleNameLower . '.php'),
-        ], 'config');
-        $this->mergeConfigFrom(
+        $this->publishes([
+            __DIR__ .'/Config/config.php' => config_path('userauth.php'),
+        ]); //, 'config');
+
+        /* $this->mergeConfigFrom(
             module_path($this->moduleName, 'Config/config.php'), $this->moduleNameLower
         ); */
     }
@@ -75,15 +87,11 @@ class UserAuthServiceProvider extends ServiceProvider
      */
     public function registerViews()
     {
-        /* $viewPath = resource_path('views/modules/' . $this->moduleNameLower);
-
-        $sourcePath = module_path($this->moduleName, 'Resources/views');
-
         $this->publishes([
-            $sourcePath => $viewPath
-        ], ['views', $this->moduleNameLower . '-module-views']);
+            __DIR__ .'/Resources/views' => resource_path('views/vendor/userauth')
+        ]);
 
-        $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->moduleNameLower); */
+        $this->loadViewsFrom(__DIR__ .'/Resources/views', 'userauth');
     }
 
     /**
@@ -93,13 +101,11 @@ class UserAuthServiceProvider extends ServiceProvider
      */
     public function registerTranslations()
     {
-        /* $langPath = resource_path('lang/modules/' . $this->moduleNameLower);
+        $this->loadTranslationsFrom(__DIR__.'/path/to/translations', 'courier');
 
-        if (is_dir($langPath)) {
-            $this->loadTranslationsFrom($langPath, $this->moduleNameLower);
-        } else {
-            $this->loadTranslationsFrom(module_path($this->moduleName, 'Resources/lang'), $this->moduleNameLower);
-        } */
+        $this->publishes([
+            __DIR__.'/Resources/lang' => resource_path('lang/vendor/userauth'),
+        ]);
     }
 
     /**
