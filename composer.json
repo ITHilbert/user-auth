@@ -1,0 +1,33 @@
+{
+    "name": "ithilbert/user-auth",
+    "type": "libary",
+    "description": "User Auth system with Roles",
+    "authors": [{
+        "name": "Jörg Hilbert",
+        "homepage": "https://www.it-hilbert.com",
+        "role": "Developer"
+    }],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "ITHilbert\\UserAuth\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ITHilbert\\UserAuth\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ITHilbert\\UserAuth\\UserAuthServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    }
+
+}
