@@ -10,24 +10,24 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     @yield('meta')
 
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/laravelkit/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/laravelkit/css/custom.css') }}">
 
     <style>
         html, body {
-            background-image: URL({{ asset('modules/userauth/img/sky-49520.jpg') }});
+            background-image: URL({{ asset('vendor/userauth/img/sky-49520.jpg') }});
             background-repeat: no-repeat;
             background-position: center;
-            background-size: cover; 
+            background-size: cover;
             width: 100vw;
             height: 100vh;
-            display: flex; 
-            justify-content: center; 
+            display: flex;
+            justify-content: center;
             align-items: center;
         }
     </style>
 
-    @yield('css')    
+    @yield('css')
 </head>
 <body>
     <div id="vue-app" class="w-100">
@@ -37,6 +37,6 @@
     </div>
 
     @yield('js')
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('vendor/laravelkit/js/app.js') }}"></script>
 </body>
 </html>

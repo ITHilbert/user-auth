@@ -1,11 +1,12 @@
 <?php
 
-//namespace Illuminate\Foundation\Auth;
-namespace ITHilbert\UserAuth\Traits;
+namespace ITHilbert\UserAuth\Traits\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use ITHilbert\UserAuth\Traits\Auth\RedirectsUsers;
+use ITHilbert\UserAuth\Traits\Auth\ThrottlesLogins;
 
 trait AuthenticatesUsers
 {

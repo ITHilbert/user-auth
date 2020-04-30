@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
-//use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use ITHilbert\UserAuth\Traits\AuthenticatesUsers;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+//use ITHilbert\UserAuth\Traits\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {

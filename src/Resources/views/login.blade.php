@@ -15,13 +15,13 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">@lang('userauth::login.email')</label>
 
                             <div class="col-md-6">
-                                <input-email id="email" class=" @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input-email id="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
-                                @error('email')
+                                {{-- @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
+                                @enderror --}}
                             </div>
                         </div>
 
@@ -29,13 +29,13 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">@lang('userauth::login.password')</label>
 
                             <div class="col-md-6">
-                                <input-password id="password" class=" @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                <input-password id="password" name="password" required autocomplete="current-password">
 
-                                @error('password')
+                               {{--  @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
+                                @enderror --}}
                             </div>
                         </div>
 

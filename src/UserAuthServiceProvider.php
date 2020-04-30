@@ -34,6 +34,15 @@ class UserAuthServiceProvider extends ServiceProvider
         $this->registerRoutes();
     }
 
+    public function publishAssets()
+    {
+        $this->publishes([
+            __DIR__ .'/Resources/assets' => public_path('vendor/userauth'),
+        ]);
+    }
+
+
+
     /**
      * Register Routes.
      *
@@ -41,7 +50,7 @@ class UserAuthServiceProvider extends ServiceProvider
      */
     protected function registerRoutes()
     {
-       // $this->loadRoutesFrom(__DIR__ . '/Routes/web.php');
+        $this->loadRoutesFrom(__DIR__ . '/Routes/web.php');
     }
 
     /**
@@ -101,7 +110,7 @@ class UserAuthServiceProvider extends ServiceProvider
      */
     public function registerTranslations()
     {
-        $this->loadTranslationsFrom(__DIR__.'/path/to/translations', 'courier');
+        $this->loadTranslationsFrom(__DIR__.'/Resources/lang', 'userauth');
 
         $this->publishes([
             __DIR__.'/Resources/lang' => resource_path('lang/vendor/userauth'),
