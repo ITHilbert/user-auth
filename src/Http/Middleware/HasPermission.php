@@ -19,6 +19,11 @@ class hasPermission
     public function handle(Request $request, Closure $next, $permission)
     {
         $user = User::find(Auth::id());
+        //Admin und Superadmin  haben immer das Recht
+        if($user->role_id <= 2){
+            return $next($request);
+        }
+        //recht prüfen
         if($user->hasPermission($permission)){
             return $next($request);
         }
