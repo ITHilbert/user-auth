@@ -10,12 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::group(['namespace' => 'ITHilbert\UserAuth\Http\Controllers'], function () {
+Route::group(['namespace' => 'ITHilbert\UserAuth\Http\Controllers',
+              'middleware' => ['web']], function () {
 
 	//Permission routes
 	Route::group([
 	    'prefix' => 'admin/permission',
-	    'middleware' => ['web', 'auth', 'isSuper']	], function(){
+	    'middleware' => ['auth', 'isSuper']	], function(){
 
 	    Route::any('/',             'PermissionController@index')->name('permission');
 	    Route::any('index',         'PermissionController@index')->name('permission.index');
@@ -32,7 +33,7 @@ Route::group(['namespace' => 'ITHilbert\UserAuth\Http\Controllers'], function ()
 	//role
 	Route::group([
 	    'prefix' => 'admin/role',
-	    'middleware' => ['web', 'auth', 'isAdmin']], function(){
+	    'middleware' => ['auth', 'isAdmin']], function(){
 
 	    Route::any('/',             'RoleController@index')->name('role');
 	    Route::any('index',         'RoleController@index')->name('role.index');
@@ -48,7 +49,7 @@ Route::group(['namespace' => 'ITHilbert\UserAuth\Http\Controllers'], function ()
 	//User
 	Route::group([
 	    'prefix' => 'admin/user',
-	    'middleware' => ['web', 'auth']], function(){
+	    'middleware' => ['auth', 'hasPermission:editUser']], function(){
 
 	    Route::any('/',             'UserController@index')->name('user');
 	    Route::any('index',         'UserController@index')->name('user.index');
@@ -63,7 +64,7 @@ Route::group(['namespace' => 'ITHilbert\UserAuth\Http\Controllers'], function ()
 
 	//Password
 	Route::group([
-	    'middleware' => ['web', 'auth']], function(){
+	    'middleware' => ['auth']], function(){
 
 	    //Password edit
 	    Route::get('password/edit',    'PasswordController@edit')->name('password.edit');

@@ -32,7 +32,22 @@ class UserAuthServiceProvider extends ServiceProvider
 
         /* $this->registerCommands();  */
         $this->registerRoutes();
+
+        $this->publishAssets();
+
+        $this->registerMiddleware();
     }
+
+
+    public function registerMiddleware(){
+        $this->app['router']->aliasMiddleware('hasPermissionAnd' , \ITHilbert\UserAuth\Http\Middleware\hasPermissionAnd::class);
+        $this->app['router']->aliasMiddleware('hasPermissionOr' , \ITHilbert\UserAuth\Http\Middleware\hasPermissionOr::class);
+        $this->app['router']->aliasMiddleware('hasPermission', \ITHilbert\UserAuth\Http\Middleware\hasPermission::class);
+        $this->app['router']->aliasMiddleware('hasRole', \ITHilbert\UserAuth\Http\Middleware\hasRole::class);
+        $this->app['router']->aliasMiddleware('isAdmin', \ITHilbert\UserAuth\Http\Middleware\isAdmin::class);
+        $this->app['router']->aliasMiddleware('isSuper', \ITHilbert\UserAuth\Http\Middleware\isSuper::class);
+    }
+
 
     public function publishAssets()
     {
@@ -100,7 +115,7 @@ class UserAuthServiceProvider extends ServiceProvider
             __DIR__ .'/Resources/views' => resource_path('views/vendor/userauth')
         ]);
 
-        $this->loadViewsFrom(__DIR__ .'/Resources/views', 'userauth');
+        $this->loadViewsFrom(resource_path('Resources/views/vendor/userauth'), 'userauth');
     }
 
     /**
@@ -110,11 +125,11 @@ class UserAuthServiceProvider extends ServiceProvider
      */
     public function registerTranslations()
     {
-        $this->loadTranslationsFrom(__DIR__.'/Resources/lang', 'userauth');
-
         $this->publishes([
             __DIR__.'/Resources/lang' => resource_path('lang/vendor/userauth'),
         ]);
+
+        $this->loadTranslationsFrom( resource_path('/Resources/lang/vendor/userauth'), 'userauth');
     }
 
     /**

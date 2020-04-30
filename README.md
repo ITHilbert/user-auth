@@ -1,4 +1,4 @@
-#User Auth
+# User Auth
 Benutzerverwaltung mit Rollen und Rechten.
 
 ## Vorraussetzungen
@@ -9,6 +9,13 @@ https://github.com/yajra/laravel-datatables
 
 ## Install
 ```
+composer require ithilbert/laravel-kit
+php artisan vendor:publish --provider="ITHilbert\LaravelKit\LaravelKitServiceProvider"
+
+composer require laravel/ui
+
+php artisan ui:auth
+
 composer require ithilbert/user-auth
 
 //Daten kopieren

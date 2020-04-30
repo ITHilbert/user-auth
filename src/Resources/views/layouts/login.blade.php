@@ -10,8 +10,9 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     @yield('meta')
 
-    <link rel="stylesheet" href="{{ asset('vendor/laravelkit/css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/laravelkit/css/custom.css') }}">
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/laravelkit/css/laravelkit.css') }}">
 
     <style>
         html, body {
@@ -28,6 +29,7 @@
     </style>
 
     @yield('css')
+
 </head>
 <body>
     <div id="vue-app" class="w-100">
@@ -37,6 +39,7 @@
     </div>
 
     @yield('js')
-    <script src="{{ asset('vendor/laravelkit/js/app.js') }}"></script>
+
+    <script src="{{ asset('vendor/laravelkit/js/vuecomponents.js') }}"></script>
 </body>
 </html>
