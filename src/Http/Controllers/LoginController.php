@@ -5,7 +5,9 @@ namespace ITHilbert\UserAuth\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
+//use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use ITHilbert\UserAuth\Traits\AuthenticatesUsers;
 
 class LoginController extends Controller
 {

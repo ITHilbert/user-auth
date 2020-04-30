@@ -41,7 +41,7 @@ class UserAuthServiceProvider extends ServiceProvider
      */
     protected function registerRoutes()
     {
-        $this->loadRoutesFrom(__DIR__ . '/Routes/web.php');
+       // $this->loadRoutesFrom(__DIR__ . '/Routes/web.php');
     }
 
     /**

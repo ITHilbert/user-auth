@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class isSuperadmin
+class isSuper
 {
     /**
      * Handle an incoming request.
