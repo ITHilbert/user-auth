@@ -12,13 +12,13 @@
     "autoload": {
         "psr-4": {
             "ITHilbert\\UserAuth\\": "src/",
-            "ITHilbert\\UserAuth\\Database\\Seeds": "Database/Seeders/"
+            "ITHilbert\\UserAuth\\Database\\Seeds\\": "Database/Seeders/"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "ITHilbert\\UserAuth\\": "src/",
-            "ITHilbert\\UserAuth\\Database\\Seeds": "Database/Seeders/"
+            "ITHilbert\\UserAuth\\Database\\Seeds\\": "Database/Seeders/"
         }
     },
     "extra": {
