@@ -15,7 +15,7 @@ Route::group(['namespace' => 'ITHilbert\UserAuth\Http\Controllers',
 
 	//Permission routes
 	Route::group([
-	    'prefix' => 'admin/permission',
+	    'prefix' => 'admin/permissions',
 	    'middleware' => ['auth', 'isSuper']	], function(){
 
 	    Route::any('/',             'PermissionController@index')->name('permission');
@@ -32,7 +32,7 @@ Route::group(['namespace' => 'ITHilbert\UserAuth\Http\Controllers',
 
 	//role
 	Route::group([
-	    'prefix' => 'admin/role',
+	    'prefix' => 'admin/roles',
 	    'middleware' => ['auth', 'isAdmin']], function(){
 
 	    Route::any('/',             'RoleController@index')->name('role');
@@ -48,7 +48,7 @@ Route::group(['namespace' => 'ITHilbert\UserAuth\Http\Controllers',
 
 	//User
 	Route::group([
-	    'prefix' => 'admin/user',
+	    'prefix' => 'admin/users',
 	    'middleware' => ['auth', 'hasPermission:editUser']], function(){
 
 	    Route::any('/',             'UserController@index')->name('user');
