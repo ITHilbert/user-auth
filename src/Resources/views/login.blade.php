@@ -11,7 +11,7 @@
     @yield('meta')
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/userauth/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/laravelkit/css/laravelkit.css') }}">
 
     <style>

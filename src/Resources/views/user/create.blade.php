@@ -39,7 +39,7 @@
         <div class="form-group row mb-2">
             <label for="role_id" class="col-md-4 col-form-label text-md-right">@lang('userauth::user.role')</label>
             <div class="col-md-6">
-            <cb name="role_id" :options="{{ $roles }}"  value="{{ old('role_id', 3) }}" required ></cb>
+            <combobox name="role_id" :options="{{ $roles }}"  value="{{ old('role_id', 3) }}" required ></combobox>
             </div>
         </div>
 

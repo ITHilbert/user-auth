@@ -4,11 +4,17 @@ namespace ITHilbert\UserAuth\Traits;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use ITHilbert\LaravelKit\Traits\VueComboBox;
 use Modules\Userauth\Entities\Role;
 
 trait UserAuth
 {
     use SoftDeletes;
+    use VueComboBox;
+
+    public function getCbCaptionAttribute(){
+        return $this->caption;
+    }
 
     public function __construct() {
         $this->fillable[] = 'role_id';
