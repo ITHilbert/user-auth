@@ -13,7 +13,7 @@ trait UserAuth
     use VueComboBox;
 
     public function getCbCaptionAttribute(){
-        return $this->caption;
+        return $this->name;
     }
 
     public function __construct() {
