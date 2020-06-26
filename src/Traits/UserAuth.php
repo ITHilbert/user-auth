@@ -32,6 +32,38 @@ trait UserAuth
         return $this->role->role;
     }
 
+    /**
+     * Prüft ob der User eine bestimmte Rolle hat
+     *
+     * @param string|int|array| $roles
+     * @return bool
+     */
+    public function hasRole($roles): bool
+    {
+        $roleArray = array();
+        $rolename = $this->role->role;
+        $roleID = $this->role_id;
+
+        if (is_string($roles) && false !== strpos($roles, '|')) {
+            $roleArray = $this->convertPipeToArray($roles);
+        }elseif (is_string($roles)|| is_int($roles)) {
+            $roleArray[] = trim($roles);
+        }else{
+            return false;
+        }
+
+        foreach ($roleArray as $role) {
+            if(is_string($role) && $role == $rolename){
+                return true;
+            }elseif(is_int($role) && $role == $roleID){
+                return true;
+            }
+        }
+        
+        //kein Treffer
+        return false;
+    }
+
     public function roleDisplayname(){
         return $this->role->role_display;
     }
@@ -39,5 +71,30 @@ trait UserAuth
     public function hasPermission($permission){
         return $this->role->hasPermission($permission);
     }
+
+
+    //Helper
+    protected function convertPipeToArray(string $pipeString)
+    {
+        $pipeString = trim($pipeString);
+
+        if (strlen($pipeString) <= 2) {
+            return $pipeString;
+        }
+
+        $quoteCharacter = substr($pipeString, 0, 1);
+        $endCharacter = substr($quoteCharacter, -1, 1);
+
+        if ($quoteCharacter !== $endCharacter) {
+            return explode('|', $pipeString);
+        }
+
+        if (! in_array($quoteCharacter, ["'", '"'])) {
+            return explode('|', $pipeString);
+        }
+
+        return explode('|', trim($pipeString, $quoteCharacter));
+    }
+
 
 }

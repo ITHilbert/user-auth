@@ -4,6 +4,7 @@ namespace ITHilbert\UserAuth;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\View\Compilers\BladeCompiler;
 
 class UserAuthServiceProvider extends ServiceProvider
 {
@@ -16,6 +17,8 @@ class UserAuthServiceProvider extends ServiceProvider
      * @var string $moduleNameLower
      */
     protected $moduleNameLower = 'userauth';
+
+    protected $loadFromPackage = true;
 
     /**
      * Boot the application events.
@@ -86,6 +89,7 @@ class UserAuthServiceProvider extends ServiceProvider
     public function register()
     {
        /*  $this->app->register(RouteServiceProvider::class); */
+       $this->registerBladeExtensions();
     }
 
     /**
@@ -154,15 +158,64 @@ class UserAuthServiceProvider extends ServiceProvider
         return [];
     }
 
-    private function getPublishableViewPaths() //: array
-    {
 
-        /* $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
-            if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
-                $paths[] = $path . '/modules/' . $this->moduleNameLower;
-            }
-        }
-        return $paths; */
+    /**
+     * Eigende Blade function (Directive)
+     *
+     * @return void
+     */
+    protected function registerBladeExtensions()
+    {
+        $this->app->afterResolving('blade.compiler', function (BladeCompiler $bladeCompiler) {
+            $bladeCompiler->directive('role', function ($arguments) {
+                list($role, $guard) = explode(',', $arguments.',');
+
+                return "<?php if(auth({$guard})->check() && auth({$guard})->user()->hasRole({$role})): ?>";
+            });
+            $bladeCompiler->directive('elserole', function ($arguments) {
+                list($role, $guard) = explode(',', $arguments.',');
+
+                return "<?php elseif(auth({$guard})->check() && auth({$guard})->user()->hasRole({$role})): ?>";
+            });
+            $bladeCompiler->directive('endrole', function () {
+                return '<?php endif; ?>';
+            });
+
+            $bladeCompiler->directive('hasrole', function ($arguments) {
+                list($role, $guard) = explode(',', $arguments.',');
+
+                return "<?php if(auth({$guard})->check() && auth({$guard})->user()->hasRole({$role})): ?>";
+            });
+            $bladeCompiler->directive('endhasrole', function () {
+                return '<?php endif; ?>';
+            });
+
+            $bladeCompiler->directive('hasanyrole', function ($arguments) {
+                list($roles, $guard) = explode(',', $arguments.',');
+
+                return "<?php if(auth({$guard})->check() && auth({$guard})->user()->hasAnyRole({$roles})): ?>";
+            });
+            $bladeCompiler->directive('endhasanyrole', function () {
+                return '<?php endif; ?>';
+            });
+
+            $bladeCompiler->directive('hasallroles', function ($arguments) {
+                list($roles, $guard) = explode(',', $arguments.',');
+
+                return "<?php if(auth({$guard})->check() && auth({$guard})->user()->hasAllRoles({$roles})): ?>";
+            });
+            $bladeCompiler->directive('endhasallroles', function () {
+                return '<?php endif; ?>';
+            });
+
+            $bladeCompiler->directive('unlessrole', function ($arguments) {
+                list($role, $guard) = explode(',', $arguments.',');
+
+                return "<?php if(!auth({$guard})->check() || ! auth({$guard})->user()->hasRole({$role})): ?>";
+            });
+            $bladeCompiler->directive('endunlessrole', function () {
+                return '<?php endif; ?>';
+            });
+        });
     }
 }

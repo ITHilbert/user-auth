@@ -1,12 +1,24 @@
 {
     "name": "ithilbert/user-auth",
     "type": "libary",
+    "license": "MIT",
     "description": "User Auth system with Roles",
+    "keywords": [
+        "it-hilbert",
+        "laravel",
+        "permission",
+        "permissions",
+        "roles",
+        "acl",
+        "rbac",
+        "security"
+    ],
     "authors": [{
         "name": "Jörg Hilbert",
         "homepage": "https://www.it-hilbert.com",
         "role": "Developer"
     }],
+    "homepage": "https://github.com/spatie/laravel-permission",
     "minimum-stability": "dev",
     "require": {},
     "autoload": {
