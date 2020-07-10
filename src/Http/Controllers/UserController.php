@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Lang;
 use Yajra\DataTables\Facades\DataTables;
 
 use App\User;
+use ITHilbert\LaravelKit\Entities\Log;
 use ITHilbert\LaravelKit\Helpers\HButton;
 use ITHilbert\UserAuth\Entities\Role;
 
@@ -41,7 +42,6 @@ class UserController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-
 
         return view('userauth::user.index');
     }
