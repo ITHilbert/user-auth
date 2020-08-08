@@ -2,7 +2,7 @@
 
 @section('title', Lang::get('userauth::permission.header_create'))
 
-@section('content')  
+@section('content')
 <card title="@lang('userauth::permission.header_create')">
 <div>
     @include('include.message')
@@ -15,6 +15,13 @@
             </div>
         </div>
 
+        <div class="form-group row mb-2">
+            <div class="col-md-4"></div>
+            <div class="col-md-6">
+                <checkbox name="permission_crud" value="true" checked="1">@lang('userauth::permission.permission_crud_create')</checkbox>
+            </div>
+        </div>
+        <br>
 
         {{-- Buttons --}}
         <div class="form-group row mb-2">
@@ -25,8 +32,8 @@
                 <button-save>@lang('userauth::button.save')</button-save>
             </div>
         </div>
-    </hform>	 
-</div>    
+    </hform>
+</div>
 </card>
 @stop
 

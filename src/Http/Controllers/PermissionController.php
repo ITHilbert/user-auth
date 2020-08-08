@@ -63,14 +63,44 @@ class PermissionController extends Controller
             'permission_display' => 'required | unique:permissions',
         ]);
 
-        $perm = $request->permission_display;
+        $perm_display = $request->permission_display;
+        $perm_lcase = strtolower( str_replace(' ','', $perm_display));
 
-        $permission = new Permission();
-        $permission->permission_display = $perm;
 
-        $perm = strtolower( str_replace(' ','', $perm));
-        $permission->permission = $perm;
-        $permission->save();
+        if(isset($request->permission_crud)){
+            //CRUD Recht anlegen
+
+            //create
+            $permission = new Permission();
+            $permission->permission_display = $perm_display .' ' . __('userauth::permission.create');
+            $permission->permission = $perm_lcase .'_create';
+            $permission->save();
+
+            //lesen
+            $permission = new Permission();
+            $permission->permission_display = $perm_display .' ' . __('userauth::permission.read');
+            $permission->permission = $perm_lcase .'_read';
+            $permission->save();
+
+            //ändern
+            $permission = new Permission();
+            $permission->permission_display = $perm_display .' ' . __('userauth::permission.edit');
+            $permission->permission = $perm_lcase .'_edit';
+            $permission->save();
+
+            //lesen
+            $permission = new Permission();
+            $permission->permission_display = $perm_display .' ' . __('userauth::permission.delete');
+            $permission->permission = $perm_lcase .'_delete';
+            $permission->save();
+
+        }else{
+            //Nur dieses Recht anlegen
+            $permission = new Permission();
+            $permission->permission_display = $perm_display;
+            $permission->permission = $perm_lcase;
+            $permission->save();
+        }
 
         if($permission){
             return redirect()->route('permission.index')->with([

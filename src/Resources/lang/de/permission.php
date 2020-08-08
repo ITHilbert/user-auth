@@ -24,6 +24,13 @@ return [
     'permission_display'    => 'Recht Name',
     'no-permission'         => 'Sie haben keine Berechtigung um auf diese Seite zuzugreifen.',
 
+    'permission_crud_create' => 'Erstelle CRUD Rechte (erstellen, lesen, ändern und löschen)',
+
+    'read'                  => 'lesen',
+    'edit'                  => 'ändern',
+    'create'                => 'erstellen',
+    'delete'                => 'delete',
+
     //Meldungen
     'MsgAddSuccess'         => 'Das Recht wurde erfolgreich angelegt.',
     'MsgEditSuccess'        => 'Das Recht wurde erfolgreich angepasst',
