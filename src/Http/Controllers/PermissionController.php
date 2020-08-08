@@ -18,7 +18,7 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Permission::latest()->get();
+        $data = Permission::latest()->where('deleted_at', NULL)->get();
 
         if ($request->ajax()) {
             return Datatables::of($data)
@@ -162,8 +162,9 @@ class PermissionController extends Controller
      */
     public function delete($id)
     {
-        $permission = Permission::findOrFail($id);
+        $permission = Permission::find($id);
         $permission->delete();
+
         return redirect()->route('permission.index')->with([
             'message'    => Lang::get('userauth::permission.MsgDeleteSuccess'),
             'alert-type' => 'success',

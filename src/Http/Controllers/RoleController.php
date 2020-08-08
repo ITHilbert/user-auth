@@ -21,7 +21,7 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Role::latest()->get();
+        $data = Role::latest()->where('deleted_at', NULL)->get();
 
         if ($request->ajax()) {
             return Datatables::of($data)
