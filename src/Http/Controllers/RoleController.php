@@ -115,23 +115,29 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //Rolle finden
         $role = Role::find($id);
 
+        //Prüfen ob Eingaben korrekt sind
         if($role->role_display != $request->role_display || $request->role_display == ''){
             $request->validate([
                 'role_display' => 'required | unique:roles',
             ]);
         }
 
+        //Rolenname setzen
         $role->role_display = $request->role_display;
         $role->role = strtolower( str_replace(' ','', $request->role_display));
         $erg = $role->update();
 
         //Rechte speichern
-        $role->permissions()->detach();
-        foreach($request->permission as $permID){
-            $perm = Permission::find($permID);
-            $role->permissions()->save($perm);
+        $role->permissions()->detach(); //Bestehende Rechte löschen
+        //Rechte neu setzen
+        if(isset($request->permission)){
+            foreach($request->permission as $permID){
+                $perm = Permission::find($permID);
+                $role->permissions()->save($perm);
+            }
         }
 
         if($erg){
