@@ -78,9 +78,11 @@ class RoleController extends Controller
         $role->save();
 
         //Rechte speichern
-        foreach($request->permission as $permID){
-            $perm = Permission::find($permID);
-            $role->permissions()->save($perm);
+        if(isset($request->permission)){
+            foreach($request->permission as $permID){
+                $perm = Permission::find($permID);
+                $role->permissions()->save($perm);
+            }
         }
 
         if($role){
