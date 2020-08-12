@@ -2,11 +2,11 @@
 
 @section('title', Lang::get('userauth::role.header_create'))
 
-@section('content')  
+@section('content')
 <card title="@lang('userauth::role.header_create')">
 <div>
     @include('include.message')
-    
+
     <hform action="{{ route('role.store') }}">
         <div class="form-group row mb-2">
             <label for="role_display" class="col-md-4 col-form-label text-md-right">@lang('userauth::role.role')</label>
@@ -14,18 +14,37 @@
                <input-text name="role_display" value="{{ old('role_display', '') }}" required />
             </div>
         </div>
-        
+
         <hr>
         {{-- Permissions --}}
-        @foreach ($permissions as $permission)
-            <div class="form-group row mb-2">
-                <div class="col-md-4"></div>   
-            {{-- <label for="per_{{ $permission->id }}" class="col-md-4 col-form-label text-md-right">{{ $permission->permission_display }}</label> --}}
-                <div class="col-md-6">
-                <checkbox name="permission[{{ $permission->id }}]" value="{{ $permission->id }}">{{ $permission->permission_display }}</checkbox>
-                </div>
+        <div class="form-group row mb-2">
+            <div class="col-md-4"></div>
+            <div class="col-md-6">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">@lang('userauth::permission.permission')</th>
+                        <th scope="col">@lang('userauth::permission.create')</th>
+                        <th scope="col">@lang('userauth::permission.read')</th>
+                        <th scope="col">@lang('userauth::permission.edit')</th>
+                        <th scope="col">@lang('userauth::permission.delete')</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($permissionsgroups as $group)
+                            <tr>
+                                <th scope="row">{{ $group->group_display }}</th>
+                                <td align="center"><checkbox name="permission[{{ $group->permissionCreate()->id }}]" value="{{ $group->permissionCreate()->id }}"></checkbox></td>
+                                <td align="center"><checkbox name="permission[{{ $group->permissionRead()->id }}]" value="{{ $group->permissionRead()->id }}"></checkbox></td>
+                                <td align="center"><checkbox name="permission[{{ $group->permissionEdit()->id }}]" value="{{ $group->permissionEdit()->id }}"></checkbox></td>
+                                <td align="center"><checkbox name="permission[{{ $group->permissionDelete()->id }}]" value="{{ $group->permissionDelete()->id }}"></checkbox></td>
+                            </tr>
+
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
-        @endforeach
+        </div>
 
         <hr>
 
@@ -38,8 +57,8 @@
                 <button-save>@lang('userauth::button.save')</button-save>
             </div>
         </div>
-    </hform>	 
-</div>    
+    </hform>
+</div>
 </card>
 @stop
 

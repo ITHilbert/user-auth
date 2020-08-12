@@ -8,7 +8,7 @@
 @stop --}}
 
 @section('content')
-<card title="@lang('userauth::permission.header_list')">  
+<card title="@lang('userauth::permission.header_list')">
 
   @include('include.message')
 
@@ -18,8 +18,8 @@
       <thead>
       <tr>
           <th>@lang('userauth::permission.id')</th>
-          <th>@lang('userauth::permission.permission')</th>
           <th>@lang('userauth::permission.permission_display')</th>
+          <th>@lang('userauth::permission.permission')</th>
           <th width="100px"></th>
       </tr>
       </thead>
@@ -44,8 +44,8 @@
         ajax: "{{ route('permission.index') }}",
         columns: [
             { data: 'id', name: 'id' },
-            { data: 'permission', name: 'permission' },
-            { data: 'permission_display', name: 'permission_display' },
+            { data: 'group_display', name: 'group_display' },
+            { data: 'group_name', name: 'group_name' },
             { data: 'action', name: 'action', orderable: false, searchable: false },
         ],
     });

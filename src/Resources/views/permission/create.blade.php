@@ -9,19 +9,17 @@
     <hform action="{{ route('permission.store') }}">
 
         <div class="form-group row mb-2">
-            <label for="permission_display" class="col-md-4 col-form-label text-md-right">@lang('userauth::permission.permission')</label>
+            <label for="group_display" class="col-md-4 col-form-label text-md-right">@lang('userauth::permission.group_display')</label>
             <div class="col-md-6">
-               <input-text name="permission_display" value="{{ old('permission_display', '') }}" required />
+               <input-text name="group_display" value="{{ old('group_display', '') }}" required />
             </div>
         </div>
-
         <div class="form-group row mb-2">
-            <div class="col-md-4"></div>
+            <label for="group_name" class="col-md-4 col-form-label text-md-right">@lang('userauth::permission.group_name')</label>
             <div class="col-md-6">
-                <checkbox name="permission_crud" value="true" checked="1">@lang('userauth::permission.permission_crud_create')</checkbox>
+               <input-text name="group_name" value="{{ old('group_name', '') }}" required />
             </div>
         </div>
-        <br>
 
         {{-- Buttons --}}
         <div class="form-group row mb-2">
@@ -37,4 +35,7 @@
 </card>
 @stop
 
+@section('js')
+    <script src="{{asset("vendor/userauth/js/permission.js")}} "></script>
+@stop
 

@@ -23,13 +23,13 @@ class RolesTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'role' => 'super',
-                'role_display' => 'super admin',
+                'role_display' => 'Superadmin',
             ),
             1 =>
             array (
                 'id' => 2,
                 'role' => 'admin',
-                'role_display' => 'admin',
+                'role_display' => 'Admin',
             ),
             2 =>
             array (

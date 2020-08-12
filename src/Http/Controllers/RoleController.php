@@ -11,6 +11,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 use ITHilbert\LaravelKit\Helpers\HButton;
 use ITHilbert\UserAuth\Entities\Permission;
+use ITHilbert\UserAuth\Entities\PermissionGroup;
 use ITHilbert\UserAuth\Entities\Role;
 
 class RoleController extends Controller
@@ -42,7 +43,6 @@ class RoleController extends Controller
                     ->make(true);
         }
 
-
         return view('userauth::role.index');
     }
 
@@ -52,9 +52,9 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $permissions = Permission::all();
+        $permissionsgroups = PermissionGroup::all();
 
-        return view('userauth::role.create')->with(compact('permissions'));
+        return view('userauth::role.create')->with(compact('permissionsgroups'));
     }
 
     /**
@@ -104,9 +104,9 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = Role::findOrFail($id);
-        $permissions = Permission::all();
+        $permissionsgroups = PermissionGroup::all();
 
-        return view('userauth::role.edit')->with(compact('role', 'permissions'));
+        return view('userauth::role.edit')->with(compact('role', 'permissionsgroups'));
     }
 
     /**
@@ -159,6 +159,10 @@ class RoleController extends Controller
      */
     public function delete($id)
     {
+        if( $id < 3){
+            return redirect()->route('role.index')->withErrors( Lang::get('userauth::role.MsgDeleteRoot'));
+        }
+
         $role = Role::findOrFail($id);
         $role->delete();
         return redirect()->route('role.index')->with([

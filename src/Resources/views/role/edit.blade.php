@@ -19,15 +19,34 @@
 
         <hr>
         {{-- Permissions --}}
-        @foreach ($permissions as $permission)
-            <div class="form-group row mb-2">
-                <div class="col-md-4"></div>
-            {{-- <label for="per_{{ $permission->id }}" class="col-md-4 col-form-label text-md-right">{{ $permission->permission_display }}</label> --}}
-                <div class="col-md-6">
-                <checkbox name="permission[{{ $permission->id }}]" value="{{ $permission->id }}" checked="{{ $role->hasPermission($permission->permission) }}">{{ $permission->permission_display }}</checkbox>
-                </div>
+        <div class="form-group row mb-2">
+            <div class="col-md-4"></div>
+            <div class="col-md-6">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">@lang('userauth::permission.permission')</th>
+                        <th scope="col">@lang('userauth::permission.create')</th>
+                        <th scope="col">@lang('userauth::permission.read')</th>
+                        <th scope="col">@lang('userauth::permission.edit')</th>
+                        <th scope="col">@lang('userauth::permission.delete')</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($permissionsgroups as $group)
+                            <tr>
+                                <th scope="row">{{ $group->group_display }}</th>
+                                <td align="center"><checkbox name="permission[{{ $group->permissionCreate()->id }}]" value="{{ $group->permissionCreate()->id }}" checked="{{ $role->hasPermission($group->group_name .'_create') }}"></checkbox></td>
+                                <td align="center"><checkbox name="permission[{{ $group->permissionRead()->id }}]" value="{{ $group->permissionRead()->id }}" checked="{{ $role->hasPermission($group->group_name .'_read') }}"></checkbox></td>
+                                <td align="center"><checkbox name="permission[{{ $group->permissionEdit()->id }}]" value="{{ $group->permissionEdit()->id }}" checked="{{ $role->hasPermission($group->group_name .'_edit') }}"></checkbox></td>
+                                <td align="center"><checkbox name="permission[{{ $group->permissionDelete()->id }}]" value="{{ $group->permissionDelete()->id }}" checked="{{ $role->hasPermission($group->group_name .'_delete') }}"></checkbox></td>
+                            </tr>
+
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
-        @endforeach
+        </div>
 
         <hr>
         {{-- Buttons --}}

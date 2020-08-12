@@ -16,15 +16,15 @@ Route::group(['namespace' => 'ITHilbert\UserAuth\Http\Controllers',
 	//Permission routes
 	Route::group([
 	    'prefix' => 'admin/permissions',
-	    'middleware' => ['auth', 'isSuper']	], function(){
+	    'middleware' => ['auth', 'hasPermission:permission_read'] ], function(){
 
 	    Route::any('/',             'PermissionController@index')->name('permission');
 	    Route::any('index',         'PermissionController@index')->name('permission.index');
-	    Route::get('create',        'PermissionController@create')->name('permission.create');
-	    Route::post('store',        'PermissionController@store')->name('permission.store');
-	    Route::get('edit/{id}',     'PermissionController@edit')->name('permission.edit');
-	    Route::post('update/{id}',  'PermissionController@update')->name('permission.update');
-	    Route::delete('delete/{id}','PermissionController@delete')->name('permission.delete');
+	    Route::get('create',        'PermissionController@create')->name('permission.create')->middleware('hasPermission:permission_create');
+	    Route::post('store',        'PermissionController@store')->name('permission.store')->middleware('hasPermission:permission_create');
+	    Route::get('edit/{id}',     'PermissionController@edit')->name('permission.edit')->middleware('hasPermission:permission_edit');
+	    Route::post('update/{id}',  'PermissionController@update')->name('permission.update')->middleware('hasPermission:permission_edit');
+	    Route::delete('delete/{id}','PermissionController@delete')->name('permission.delete')->middleware('hasPermission:permission_edit');
 	    //Route::get('show/{id}',     'PermissionController@show')->name('permission.show');
 
 	});
@@ -33,15 +33,15 @@ Route::group(['namespace' => 'ITHilbert\UserAuth\Http\Controllers',
 	//role
 	Route::group([
 	    'prefix' => 'admin/roles',
-	    'middleware' => ['auth', 'isAdmin']], function(){
+	    'middleware' => ['auth', 'hasPermission:role_read'] ], function(){
 
 	    Route::any('/',             'RoleController@index')->name('role');
 	    Route::any('index',         'RoleController@index')->name('role.index');
-	    Route::get('create',        'RoleController@create')->name('role.create');
-	    Route::post('store',        'RoleController@store')->name('role.store');
-	    Route::get('edit/{id}',     'RoleController@edit')->name('role.edit');
-	    Route::post('update/{id}',  'RoleController@update')->name('role.update');
-	    Route::delete('delete/{id}','RoleController@delete')->name('role.delete');
+	    Route::get('create',        'RoleController@create')->name('role.create')->middleware('hasPermission:role_create');
+	    Route::post('store',        'RoleController@store')->name('role.store')->middleware('hasPermission:role_create');
+	    Route::get('edit/{id}',     'RoleController@edit')->name('role.edit')->middleware('hasPermission:role_edit');
+	    Route::post('update/{id}',  'RoleController@update')->name('role.update')->middleware('hasPermission:role_edit');
+	    Route::delete('delete/{id}','RoleController@delete')->name('role.delete')->middleware('hasPermission:role_delete');
 	    //Route::get('show/{id}',     'RoleController@show')->name('role.show');
 	});
 
@@ -49,16 +49,16 @@ Route::group(['namespace' => 'ITHilbert\UserAuth\Http\Controllers',
 	//User
 	Route::group([
 	    'prefix' => 'admin/users',
-	    'middleware' => ['auth', 'hasPermission:editUser']], function(){
+	    'middleware' => ['auth', 'hasPermission:user_read'] ], function(){
 
 	    Route::any('/',             'UserController@index')->name('user');
 	    Route::any('index',         'UserController@index')->name('user.index');
-	    Route::get('create',        'UserController@create')->name('user.create');
-	    Route::post('store',        'UserController@store')->name('user.store');
-	    Route::get('edit/{id}',     'UserController@edit')->name('user.edit');
-	    Route::post('update/{id}',  'UserController@update')->name('user.update');
-	    Route::delete('delete/{id}','UserController@delete')->name('user.delete');
-	    //Route::get('show/{id}',     'UserController@show')->name('user.show');
+	    Route::get('create',        'UserController@create')->name('user.create')->middleware('hasPermission:user_create');
+	    Route::post('store',        'UserController@store')->name('user.store')->middleware('hasPermission:user_create');
+	    Route::get('edit/{id}',     'UserController@edit')->name('user.edit')->middleware('hasPermission:user_edit');
+	    Route::post('update/{id}',  'UserController@update')->name('user.update')->middleware('hasPermission:user_edit');
+	    Route::delete('delete/{id}','UserController@delete')->name('user.delete')->middleware('hasPermission:user_delete');
+	    //Route::get('show/{id}',     'UserController@show')->name('user.show')->middleware('hasPermission:user_read');;
 	});
 
 
@@ -73,17 +73,6 @@ Route::group(['namespace' => 'ITHilbert\UserAuth\Http\Controllers',
 	    //Logout
 	    Route::any('logout', 'LoginController@logout')->name('logout');
 	});
-
-
-	//Test
-	/* Route::group([
-	    'prefix' => 'test'], function(){
-
-	    Route::get('role', 'TestController@role');
-	    Route::get('user', 'TestController@user');
-	    //Route::get('users', ['uses'=>'UserController@index', 'as'=>'users.index']);
-	}); */
-
 
 	//Login
 	Route::get('login', 'LoginController@showLoginForm')->name('login');

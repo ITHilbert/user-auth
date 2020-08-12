@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Lang;
 use Yajra\DataTables\Facades\DataTables;
 use ITHilbert\LaravelKit\Helpers\HButton;
 use ITHilbert\UserAuth\Entities\Permission;
+use ITHilbert\UserAuth\Entities\PermissionGroup;
 
 class PermissionController extends Controller
 {
@@ -18,7 +19,7 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Permission::latest()->where('deleted_at', NULL)->get();
+        $data = PermissionGroup::latest()->where('deleted_at', NULL)->get();
 
         if ($request->ajax()) {
             return Datatables::of($data)
@@ -60,56 +61,68 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'permission_display' => 'required | unique:permissions',
+            'group_display' => 'required | unique:permissions_groups',
+            'group_name' => 'required | unique:permissions_groups',
         ]);
 
-        $perm_display = $request->permission_display;
-        $perm_lcase = strtolower( str_replace(' ','', $perm_display));
+        $group_display = $request->group_display;
+        $group_name = strtolower( str_replace(' ','', $request->group_name));
+        $group_name = str_replace('ä','ae', $group_name);
+        $group_name = str_replace('ö','oe', $group_name);
+        $group_name = str_replace('ü','ue', $group_name);
+        $group_name = str_replace('ß','ss', $group_name);
+        $group_name = str_replace(';','', $group_name);
+        $group_name = str_replace(':','', $group_name);
+        $group_name = str_replace('"','', $group_name);
+        $group_name = str_replace("'",'', $group_name);
+        $group_name = str_replace('<','', $group_name);
+        $group_name = str_replace('>','', $group_name);
 
+        //Permissions group anlegen
+        $group = new PermissionGroup();
+        $group->group_name = $group_name;
+        $group->group_display = $group_display;
+        $group->save();
 
-        if(isset($request->permission_crud)){
-            //CRUD Recht anlegen
+        //CRUD Recht anlegen
 
-            //create
-            $permission = new Permission();
-            $permission->permission_display = $perm_display .' ' . __('userauth::permission.create');
-            $permission->permission = $perm_lcase .'_create';
-            $permission->save();
+        //create
+        $permission_create = new Permission();
+        $permission_create->permission_display = $group_display .' ' . __('userauth::permission.create');
+        $permission_create->permission = $group_name .'_create';
+        $permission_create->group_id = $group->id;
+        $permission_create->crud = 'create';
+        $permission_create->save();
 
-            //lesen
-            $permission = new Permission();
-            $permission->permission_display = $perm_display .' ' . __('userauth::permission.read');
-            $permission->permission = $perm_lcase .'_read';
-            $permission->save();
+        //lesen
+        $permission_read = new Permission();
+        $permission_read->permission_display = $group_display .' ' . __('userauth::permission.read');
+        $permission_read->permission = $group_name .'_read';
+        $permission_read->group_id = $group->id;
+        $permission_read->crud = 'read';
+        $permission_read->save();
 
-            //ändern
-            $permission = new Permission();
-            $permission->permission_display = $perm_display .' ' . __('userauth::permission.edit');
-            $permission->permission = $perm_lcase .'_edit';
-            $permission->save();
+        //ändern
+        $permission_edit = new Permission();
+        $permission_edit->permission_display = $group_display .' ' . __('userauth::permission.edit');
+        $permission_edit->permission = $group_name .'_edit';
+        $permission_edit->group_id = $group->id;
+        $permission_edit->crud = 'edit';
+        $permission_edit->save();
 
-            //lesen
-            $permission = new Permission();
-            $permission->permission_display = $perm_display .' ' . __('userauth::permission.delete');
-            $permission->permission = $perm_lcase .'_delete';
-            $permission->save();
+        //delete
+        $permission_delete = new Permission();
+        $permission_delete->permission_display = $group_display .' ' . __('userauth::permission.delete');
+        $permission_delete->permission = $group_name .'_delete';
+        $permission_delete->group_id = $group->id;
+        $permission_delete->crud = 'delete';
+        $permission_delete->save();
 
-        }else{
-            //Nur dieses Recht anlegen
-            $permission = new Permission();
-            $permission->permission_display = $perm_display;
-            $permission->permission = $perm_lcase;
-            $permission->save();
-        }
+        return redirect()->route('permission.index')->with([
+            'message'    => Lang::get('userauth::permission.MsgAddSuccess'),
+            'alert-type' => 'success',
+        ]);
 
-        if($permission){
-            return redirect()->route('permission.index')->with([
-                'message'    => Lang::get('userauth::permission.MsgAddSuccess'),
-                'alert-type' => 'success',
-            ]);
-        }else{
-            return redirect()->back();
-        }
     }
 
 
@@ -120,8 +133,8 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        $permission = Permission::findOrFail($id);
-        return view('userauth::permission.edit')->with(compact('permission'));
+        $permissiongroup = PermissionGroup::findOrFail($id);
+        return view('userauth::permission.edit')->with(compact('permissiongroup'));
     }
 
     /**
@@ -133,26 +146,53 @@ class PermissionController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'permission_display' => 'required | unique:permissions',
+            'group_display' => 'required' ,
+            'group_name' => 'required',
         ]);
 
-        $perm = $request->permission_display;
+        $group_display = $request->group_display;
+        $group_name = strtolower( str_replace(' ','', $request->group_name));
+        $group_name = str_replace('ä','ae', $group_name);
+        $group_name = str_replace('ö','oe', $group_name);
+        $group_name = str_replace('ü','ue', $group_name);
+        $group_name = str_replace('ß','ss', $group_name);
+        $group_name = str_replace(';','', $group_name);
+        $group_name = str_replace(':','', $group_name);
+        $group_name = str_replace('"','', $group_name);
+        $group_name = str_replace("'",'', $group_name);
+        $group_name = str_replace('<','', $group_name);
+        $group_name = str_replace('>','', $group_name);
 
-        $permission = Permission::find($id);
-        $permission->permission_display = $perm;
 
-        $perm = strtolower( str_replace(' ','', $perm));
-        $permission->permission = $perm;
-        $erg = $permission->update();
+        $group = PermissionGroup::find($id);
+        $group->group_display = $request->group_display;
+        $group->group_name = $request->group_name;
+        $group->update();
 
-        if($erg){
-            return redirect()->route('permission.index')->with([
-                'message'    => Lang::get('userauth::permission.MsgEditSuccess'),
-                'alert-type' => 'success',
-            ]);
-        }else{
-            return redirect()->back();
+
+        $permissions = Permission::where('group_id', $id)->get();
+        foreach($permissions as $perm){
+            if($perm->crud == 'create'){
+                $perm->permission_display = $group_display .' ' . __('userauth::permission.create');
+                $perm->permission = $group_name .'_create';
+            }elseif($perm->crud == 'read'){
+                $perm->permission_display = $group_display .' ' . __('userauth::permission.read');
+                $perm->permission = $group_name .'_read';
+            }elseif($perm->crud == 'edit'){
+                $perm->permission_display = $group_display .' ' . __('userauth::permission.edit');
+                $perm->permission = $group_name .'_edit';
+            }else{
+                $perm->permission_display = $group_display .' ' . __('userauth::permission.delete');
+                $perm->permission = $group_name .'_delete';
+            }
+            $perm->update();
+
         }
+
+        return redirect()->route('permission.index')->with([
+            'message'    => Lang::get('userauth::permission.MsgEditSuccess'),
+            'alert-type' => 'success',
+        ]);
     }
 
     /**

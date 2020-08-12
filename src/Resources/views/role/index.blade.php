@@ -8,7 +8,7 @@
 @stop --}}
 
 @section('content')
-<card title="@lang('userauth::role.header_list')">  
+<card title="@lang('userauth::role.header_list')">
 
   @include('include.message')
 
@@ -18,8 +18,8 @@
       <thead>
       <tr>
           <th>@lang('userauth::role.id')</th>
-          <th>@lang('userauth::role.role')</th>
           <th>@lang('userauth::role.role_display')</th>
+          <th>@lang('userauth::role.role')</th>
           <th width="100px"></th>
       </tr>
       </thead>
@@ -44,8 +44,8 @@
         ajax: "{{ route('role.index') }}",
         columns: [
             { data: 'id', name: 'id' },
-            { data: 'role', name: 'role' },
             { data: 'role_display', name: 'role_display' },
+            { data: 'role', name: 'role' },
             { data: 'action', name: 'action', orderable: false, searchable: false },
         ],
     });

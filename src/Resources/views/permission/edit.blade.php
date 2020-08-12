@@ -5,18 +5,26 @@
 {{-- @section('content_header')
 @stop --}}
 
-@section('content')  
+@section('content')
 <card title="@lang('userauth::permission.header_edit')">
 <div>
     @include('include.message')
-    <hform action="{{ route('permission.update', $permission->id) }}">
+    <hform action="{{ route('permission.update', $permissiongroup->id) }}">
+
         <div class="form-group row mb-2">
-            <label for="permission_display" class="col-md-4 col-form-label text-md-right">@lang('userauth::permission.permission')</label>
+            <label for="group_display" class="col-md-4 col-form-label text-md-right">@lang('userauth::permission.group_display')</label>
             <div class="col-md-6">
-               <input-text name="permission_display" value="{{ old('permission_display', $permission->permission_display) }}" required />
+               <input-text name="group_display" value="{{ old('group_display', $permissiongroup->group_display) }}" required />
             </div>
         </div>
-        
+
+        <div class="form-group row mb-2">
+            <label for="group_name" class="col-md-4 col-form-label text-md-right">@lang('userauth::permission.group_name')</label>
+            <div class="col-md-6">
+               <input-text name="group_name" value="{{ old('group_name', $permissiongroup->group_name) }}" required />
+            </div>
+        </div>
+
         {{-- Buttons --}}
         <div class="form-group row mb-2">
             <div class="col-md-4 text-right">
@@ -26,7 +34,11 @@
                 <button-save>@lang('userauth::button.save')</button-save>
             </div>
         </div>
-    </hform>	 
-</div>    
+    </hform>
+</div>
 </card>
+@stop
+
+@section('js')
+    <script src="{{asset("vendor/userauth/js/permission.js")}} "></script>
 @stop

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePermissionsTable extends Migration
+class CreatePermissionsGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreatePermissionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('permissions', function (Blueprint $table) {
+        Schema::create('permissions_groups', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('permission')->unique();
-            $table->string('permission_display');
-            $table->bigInteger('group_id');
-            $table->string('crud', 10);
+            $table->string('group_name')->unique();
+            $table->string('group_display');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +29,6 @@ class CreatePermissionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permissions');
+        Schema::dropIfExists('permissions_groups');
     }
 }
