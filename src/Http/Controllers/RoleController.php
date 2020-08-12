@@ -142,14 +142,10 @@ class RoleController extends Controller
             }
         }
 
-        if($erg){
-            return redirect()->route('role.index')->with([
-                'message'    => Lang::get('userauth::role.MsgEditSuccess'),
-                'alert-type' => 'success',
-            ]);
-        }else{
-            return redirect()->back();
-        }
+        //return redirect()->route('role.index')->with([ 'success' => Lang::get('userauth::role.MsgEditSuccess')]);
+
+
+        return redirect()->route('role.index')->with(['message'    => Lang::get('userauth::role.MsgEditSuccess') ]);
     }
 
     /**

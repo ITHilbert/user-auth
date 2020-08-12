@@ -4,6 +4,7 @@ Benutzerverwaltung mit Rollen und Rechten.
 ## Vorraussetzungen
 ```
 composer require ithilbert/laravel-kit
+
 https://github.com/yajra/laravel-datatables
 ```
 
@@ -37,3 +38,5 @@ Password: password
 ## ToDo
 - Passwort vergessen
 - Register new User
+- Rechte ohne CRUD
+
