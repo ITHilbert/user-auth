@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -26,15 +26,20 @@ class UserController extends Controller
         $data = User::latest()->where('deleted_at', NULL)->get();
 
         if ($request->ajax()) {
+            $user = Auth::user();
             return Datatables::of($data)
                 ->addColumn('RoleName', function ($row) {
                     return $row->roleDisplayname();
                 })
-                ->addColumn('action', function ($row) {
+                ->addColumn('action', function ($row) use ($user) {
                     $ausgabe = '<div style="white-space: nowrap;">';
                     //$ausgabe .= HButton::show(route('permission.show', $row->id), '');
-                    $ausgabe .= HButton::edit(route('user.edit', $row->id), '');
-                    $ausgabe .= HButton::delete($row->id, '');
+                    if($user->hasPermission('user_edit')){
+                        $ausgabe .= HButton::edit(route('user.edit', $row->id), '');
+                    }
+                    if($user->hasPermission('user_delete')){
+                        $ausgabe .= HButton::delete($row->id, '');
+                    }
                     $ausgabe .= '</div>';
 
                     return $ausgabe;

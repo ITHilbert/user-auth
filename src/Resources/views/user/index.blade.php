@@ -8,11 +8,13 @@
 @stop --}}
 
 @section('content')
-<card title="@lang('userauth::user.header_list')">  
+<card title="@lang('userauth::user.header_list')">
 
   @include('include.message')
 
+  @hasPermission('user_create')
   <button-create route="{{ route('user.create') }}">@lang('userauth::button.addUser')</button-create>
+  @endhasPermission()
 
   <table class="table table-bordered data-table">
       <thead>

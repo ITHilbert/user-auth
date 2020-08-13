@@ -5,7 +5,7 @@ namespace ITHilbert\UserAuth\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -25,17 +25,22 @@ class RoleController extends Controller
         $data = Role::latest()->where('deleted_at', NULL)->get();
 
         if ($request->ajax()) {
+            $user = Auth::user();
             return Datatables::of($data)
                     /* ->addIndexColumn() */
  /*                    ->addColumn('cname', function($row){
                             return $row->getName();
                     }) */
-                    ->addColumn('action', function($row){
+                    ->addColumn('action', function($row) use ($user) {
                         $ausgabe = '<div style="white-space: nowrap;">';
                         if($row->id > 2){
                             //$ausgabe .= HButton::show(route('permission.show', $row->id), '');
-                            $ausgabe .= HButton::edit(route('role.edit', $row->id), '');
-                            $ausgabe .= HButton::delete($row->id, '');
+                            if($user->hasPermission('role_edit')){
+                                $ausgabe .= HButton::edit(route('role.edit', $row->id), '');
+                            }
+                            if($user->hasPermission('role_delete')){
+                                $ausgabe .= HButton::delete($row->id, '');
+                            }
                         }
                         $ausgabe .= '</div>';
 
