@@ -12,7 +12,11 @@
 
   @include('include.message')
 
+
+  @hasPermission('permission_create')
   <button-create route="{{ route('permission.create') }}">@lang('userauth::button.addPermission')</button-create>
+  @endhasPermission
+
 
   <table class="table table-bordered data-table">
       <thead>

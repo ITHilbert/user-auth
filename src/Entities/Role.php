@@ -33,11 +33,62 @@ class Role extends Model
      * @return boolean
      */
     public function hasPermission($permission){
+        //Admin darf immer
+        if($this->role == 'super' || $this->role == 'admin'){
+            return true;
+        }
+
         $permission = $this->permissions->where('permission', $permission)->first();
         if($permission){
             return true;
         }
         return false;
+    }
+
+    /**
+     * Prüft ob die Rolle eine bestimmte Permission hat
+     *
+     * @param string $permission
+     * @return boolean
+     */
+    public function hasPermissionOr($permissions){
+        //Admin darf immer
+        if($this->role == 'super' || $this->role == 'admin'){
+            return true;
+        }
+
+        $permission = explode(',', $permissions);
+
+        foreach( $permission as $perm) {
+            $check = $this->permissions->where('permission', trim($perm) )->first();
+            if($check){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Prüft ob die Rolle eine bestimmte Permission hat
+     *
+     * @param string $permission
+     * @return boolean
+     */
+    public function hasPermissionAnd($permissions){
+        //Admin darf immer
+        if($this->role == 'super' || $this->role == 'admin'){
+            return true;
+        }
+
+        $permission = explode(',', $permissions);
+
+        foreach( $permission as $perm) {
+            $check = $this->permissions->where('permission', trim($perm))->first();
+            if(!$check){
+                return false;
+            }
+        }
+        return true;
     }
 
 }

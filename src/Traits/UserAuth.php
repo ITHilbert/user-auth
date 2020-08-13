@@ -59,7 +59,7 @@ trait UserAuth
                 return true;
             }
         }
-        
+
         //kein Treffer
         return false;
     }
@@ -72,6 +72,13 @@ trait UserAuth
         return $this->role->hasPermission($permission);
     }
 
+    public function hasPermissionOr($permissions){
+        return $this->role->hasPermissionOr($permissions);
+    }
+
+    public function hasPermissionAnd($permissions){
+        return $this->role->hasPermissionAnd($permissions);
+    }
 
     //Helper
     protected function convertPipeToArray(string $pipeString)

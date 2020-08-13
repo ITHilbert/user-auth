@@ -2,6 +2,7 @@
 
 namespace ITHilbert\UserAuth\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -24,7 +25,7 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
-        $user = Auth::user();
+
         $data = PermissionGroup::latest()->where('deleted_at', NULL)->get();
 
         if ($request->ajax()) {
@@ -36,11 +37,12 @@ class PermissionController extends Controller
                     ->addColumn('action', function($row){
                         $ausgabe = '<div style="white-space: nowrap;">';
                         if($row->id > 3){
+                            $user = User::find(Auth::id());
                             //$ausgabe .= HButton::show(route('permission.show', $row->id), '');
-                            if($this->user->hasPermission('permission_edit')){
+                            if($user->hasPermission('permission_edit')){
                                 $ausgabe .= HButton::edit(route('permission.edit', $row->id), '');
                             }
-                            if($this->user->hasPermission('permission_delete')){
+                            if($user->hasPermission('permission_delete')){
                                 $ausgabe .= HButton::delete($row->id, '');
                             }
                         }

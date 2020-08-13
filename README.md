@@ -28,6 +28,13 @@ php artisan migrate
 //Daten einspielen
 php artisan db:seed --class="ITHilbert\UserAuth\Database\Seeders\DatabaseSeeder"
 
+// Menü Filter registieren
+// Datei /config/adminlte.php öffnen und beim Punkt filters folgendes ergänzen:
+    App\Menu\Filters\hasRole::class,
+    App\Menu\Filters\hasPermission::class,
+    App\Menu\Filters\hasPermissionOr::class,
+    App\Menu\Filters\hasPermissionAnd::class,
+
 ```
 
 ## Benutzer
