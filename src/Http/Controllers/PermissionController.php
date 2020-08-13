@@ -29,15 +29,15 @@ class PermissionController extends Controller
         $data = PermissionGroup::latest()->where('deleted_at', NULL)->get();
 
         if ($request->ajax()) {
+            $user = Auth::user(); // find(Auth::id());
             return Datatables::of($data)
                     /* ->addIndexColumn() */
  /*                    ->addColumn('cname', function($row){
                             return $row->getName();
                     }) */
-                    ->addColumn('action', function($row){
+                    ->addColumn('action', function($row) use ($user){
                         $ausgabe = '<div style="white-space: nowrap;">';
                         if($row->id > 3){
-                            $user = User::find(Auth::id());
                             //$ausgabe .= HButton::show(route('permission.show', $row->id), '');
                             if($user->hasPermission('permission_edit')){
                                 $ausgabe .= HButton::edit(route('permission.edit', $row->id), '');
@@ -197,8 +197,15 @@ class PermissionController extends Controller
      */
     public function delete($id)
     {
-        $permission = Permission::find($id);
-        $permission->delete();
+        //Recht löschen
+        $permissions = Permission::where('group_id', $id)->get();
+        foreach ($permissions as $perm) {
+            $perm->delete();
+        }
+
+        //Rechte Groupe löschen
+        $group = PermissionGroup::find($id);
+        $group->delete();
 
         return redirect()->route('permission.index')->with([
             'message'    => Lang::get('userauth::permission.MsgDeleteSuccess'),
