@@ -46,4 +46,4 @@ Password: password
 - Passwort vergessen
 - Register new User
 - Rechte ohne CRUD
-
+- Role anpassen wie Permission mit Internen namen
