@@ -32,9 +32,11 @@ class RoleController extends Controller
                     }) */
                     ->addColumn('action', function($row){
                         $ausgabe = '<div style="white-space: nowrap;">';
-                        //$ausgabe .= HButton::show(route('permission.show', $row->id), '');
-                        $ausgabe .= HButton::edit(route('role.edit', $row->id), '');
-                        $ausgabe .= HButton::delete($row->id, '');
+                        if($row->id > 2){
+                            //$ausgabe .= HButton::show(route('permission.show', $row->id), '');
+                            $ausgabe .= HButton::edit(route('role.edit', $row->id), '');
+                            $ausgabe .= HButton::delete($row->id, '');
+                        }
                         $ausgabe .= '</div>';
 
                         return $ausgabe;

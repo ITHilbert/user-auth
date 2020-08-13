@@ -5,20 +5,26 @@ namespace ITHilbert\UserAuth\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Yajra\DataTables\Facades\DataTables;
 use ITHilbert\LaravelKit\Helpers\HButton;
 use ITHilbert\UserAuth\Entities\Permission;
 use ITHilbert\UserAuth\Entities\PermissionGroup;
+use ITHilbert\UserAuth\Traits\Format;
+use function ITHilbert\UserAuth\Helpers\formatDisplayToIntern;
 
 class PermissionController extends Controller
 {
+    use Format;
+
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index(Request $request)
     {
+        $user = Auth::user();
         $data = PermissionGroup::latest()->where('deleted_at', NULL)->get();
 
         if ($request->ajax()) {
@@ -29,9 +35,15 @@ class PermissionController extends Controller
                     }) */
                     ->addColumn('action', function($row){
                         $ausgabe = '<div style="white-space: nowrap;">';
-                        //$ausgabe .= HButton::show(route('permission.show', $row->id), '');
-                        $ausgabe .= HButton::edit(route('permission.edit', $row->id), '');
-                        $ausgabe .= HButton::delete($row->id, '');
+                        if($row->id > 3){
+                            //$ausgabe .= HButton::show(route('permission.show', $row->id), '');
+                            if($this->user->hasPermission('permission_edit')){
+                                $ausgabe .= HButton::edit(route('permission.edit', $row->id), '');
+                            }
+                            if($this->user->hasPermission('permission_delete')){
+                                $ausgabe .= HButton::delete($row->id, '');
+                            }
+                        }
                         $ausgabe .= '</div>';
 
                         return $ausgabe;
@@ -66,17 +78,8 @@ class PermissionController extends Controller
         ]);
 
         $group_display = $request->group_display;
-        $group_name = strtolower( str_replace(' ','', $request->group_name));
-        $group_name = str_replace('ä','ae', $group_name);
-        $group_name = str_replace('ö','oe', $group_name);
-        $group_name = str_replace('ü','ue', $group_name);
-        $group_name = str_replace('ß','ss', $group_name);
-        $group_name = str_replace(';','', $group_name);
-        $group_name = str_replace(':','', $group_name);
-        $group_name = str_replace('"','', $group_name);
-        $group_name = str_replace("'",'', $group_name);
-        $group_name = str_replace('<','', $group_name);
-        $group_name = str_replace('>','', $group_name);
+        $group_name = $this->formatDisplayToIntern($request->group_name);
+
 
         //Permissions group anlegen
         $group = new PermissionGroup();
@@ -151,17 +154,7 @@ class PermissionController extends Controller
         ]);
 
         $group_display = $request->group_display;
-        $group_name = strtolower( str_replace(' ','', $request->group_name));
-        $group_name = str_replace('ä','ae', $group_name);
-        $group_name = str_replace('ö','oe', $group_name);
-        $group_name = str_replace('ü','ue', $group_name);
-        $group_name = str_replace('ß','ss', $group_name);
-        $group_name = str_replace(';','', $group_name);
-        $group_name = str_replace(':','', $group_name);
-        $group_name = str_replace('"','', $group_name);
-        $group_name = str_replace("'",'', $group_name);
-        $group_name = str_replace('<','', $group_name);
-        $group_name = str_replace('>','', $group_name);
+        $group_name = $this->formatDisplayToIntern($request->group_name);
 
 
         $group = PermissionGroup::find($id);

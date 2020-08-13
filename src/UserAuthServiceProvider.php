@@ -4,6 +4,7 @@ namespace ITHilbert\UserAuth;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Config;
 use Illuminate\View\Compilers\BladeCompiler;
 
 class UserAuthServiceProvider extends ServiceProvider
@@ -20,6 +21,8 @@ class UserAuthServiceProvider extends ServiceProvider
 
     protected $loadFromPackage = true;
 
+
+
     /**
      * Boot the application events.
      *
@@ -27,8 +30,9 @@ class UserAuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerTranslations();
         $this->registerConfig();
+        $this->registerTranslations();
+
         $this->registerViews();
         /* $this->registerFactories(); */
         $this->loadMigrationsFrom(__DIR__ . '/Database/Migrations');
@@ -101,11 +105,8 @@ class UserAuthServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__ .'/Config/config.php' => config_path('userauth.php'),
-        ]); //, 'config');
-
-        /* $this->mergeConfigFrom(
-            module_path($this->moduleName, 'Config/config.php'), $this->moduleNameLower
-        ); */
+        ]);
+        $loadFromPackage= Config::get('userauth.loadFromPackage', true);
     }
 
     /**
