@@ -51,6 +51,13 @@ class PermissionGroup extends Model
         return $this->group_display;
     }
 
+    public function getPermisssions(){
+        return Permission::where('group_id', $this->id)->where('deleted_at', NULL)->get();
+    }
+
+    public function getPermisssionsSingle(){
+        return Permission::where('group_id', $this->id)->where('deleted_at', NULL)->where('crud', 'single')->get();
+    }
 
 
 }

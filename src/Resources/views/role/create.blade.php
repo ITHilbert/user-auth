@@ -16,7 +16,7 @@
         </div>
 
         <hr>
-        {{-- Permissions --}}
+        {{-- Permissions CRUD--}}
         <div class="form-group row mb-2">
             <div class="col-md-4"></div>
             <div class="col-md-6">
@@ -31,7 +31,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                        @foreach ($permissionsgroups as $group)
+                        @foreach ($permissionsgroups1 as $group)
                             <tr>
                                 <th scope="row">{{ $group->group_display }}</th>
                                 <td align="center"><checkbox name="permission[{{ $group->permissionCreate()->id }}]" value="{{ $group->permissionCreate()->id }}"></checkbox></td>
@@ -45,6 +45,34 @@
                 </table>
             </div>
         </div>
+
+        <br>
+
+        {{-- Permissions Single--}}
+        @foreach ($permissionsgroups2 as $group)
+            <div class="form-group row mb-2">
+                <div class="col-md-4"></div>
+                <div class="col-md-6">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col" colspan="2">{{ $group->group_display }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($group->getPermisssionsSingle() as $perm)
+                                <tr>
+                                    <th scope="row">{{ $perm->permission_display }}</th>
+                                    <td align="center"><checkbox name="permission[{{ $perm->id }}]" value="{{old( 'permission['. $perm->id .']' , false) }}"></checkbox></td>
+                                </tr>
+
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        @endforeach
+
 
         <hr>
 

@@ -45,5 +45,5 @@ Password: password
 ## ToDo
 - Passwort vergessen
 - Register new User
-- Rechte ohne CRUD
+- Rollen anpassen für Rechte ohne CRUD
 - Role anpassen wie Permission mit Internen namen

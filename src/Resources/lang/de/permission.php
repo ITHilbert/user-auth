@@ -31,6 +31,7 @@ return [
 
     'group_name'            => 'Rechtname intern',
     'group_display'         => 'Rechtname',
+    'ck-permission-group'   => 'Rechtgroupe anlegen',
 
     //Meldungen
     'MsgAddSuccess'         => 'Das Recht wurde erfolgreich angelegt.',

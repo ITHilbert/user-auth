@@ -59,9 +59,10 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $permissionsgroups = PermissionGroup::all();
+        $permissionsgroups1 = PermissionGroup::where('deleted_at', null)->where('is_group', 0)->get();
+        $permissionsgroups2 = PermissionGroup::where('deleted_at', null)->where('is_group', 1)->get();
 
-        return view('userauth::role.create')->with(compact('permissionsgroups'));
+        return view('userauth::role.create')->with(compact('permissionsgroups1', 'permissionsgroups2'));
     }
 
     /**
