@@ -185,7 +185,7 @@ class UserAuthServiceProvider extends ServiceProvider
     {
         $this->app->afterResolving('blade.compiler', function (BladeCompiler $bladeCompiler) {
 
-            $bladeCompiler->directive('role', function ($arguments) {
+            $bladeCompiler->directive('Role', function ($arguments) {
                 list($role, $guard) = explode(',', $arguments.',');
 
                 return "<?php if(auth({$guard})->check() && auth({$guard})->user()->hasRole({$role})): ?>";

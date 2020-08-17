@@ -34,7 +34,6 @@ php artisan db:seed --class="ITHilbert\UserAuth\Database\Seeders\DatabaseSeeder"
     App\Menu\Filters\hasPermission::class,
     App\Menu\Filters\hasPermissionOr::class,
     App\Menu\Filters\hasPermissionAnd::class,
-
 ```
 
 ## Benutzer
@@ -42,7 +41,15 @@ User: admin@admin.com
 Password: password
 
 
+## Blade Directiven
+- Role - elseRole - endRole
+- hasRole - endhasRole
+- hasanyrole - endhasanyrole
+- hasallroles - endhasallroles
+- unlessrole - endunlessrole
+- hasPermission - endhasPermission
+
+
 ## ToDo
 - Passwort vergessen
 - Register new User
-- Role anpassen wie Permission mit Internen namen
