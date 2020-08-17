@@ -12,7 +12,6 @@ group_display.addEventListener("change", function() {
 
 
 function showSinglePermissions() {
-    console.clear();
     var cb = $('input[name="ckPermissionGroup"]')[0].checked;
 
     if (cb) {
@@ -32,11 +31,11 @@ function newPermission() {
     newID++;
     vorlage.removeClass('d-none');
     vorlage.attr('id', 'new-row-' + newID)
+    vorlage.attr('nummer', newID);
 
     //ID anpassen
     var rowid = vorlage.find('#new-id');
     rowid.attr('id', 'new-id-' + newID);
-    rowid.attr('nummer', newID);
     rowid.append('new_' + newID);
 
     //Recht anpassen
@@ -52,16 +51,20 @@ function newPermission() {
     //Recht intern anpassen
     var tb2 = vorlage.find('#vorlage_intern');
     tb2.attr('id', 'intern_new_' + newID);
-    tb2.attr('name', 'permisspermission_new_' + newID);
+    tb2.attr('name', 'permission_new_' + newID);
 
     //Löschen Button
     var btn = vorlage.find('#btnVorlage');
     btn.removeAttr('id');
     btn.attr('onclick', "deletePermission('new-row-" + newID + "')");
 
-
     //Angepasste Vorlage einfügen
     $('#tbody').append(vorlage);
+
+    var tb = document.getElementById('display_new_' + newID)
+    tb.addEventListener("change", function() {
+        editIntern('new-row-' + newID);
+    });
 }
 
 
@@ -93,14 +96,19 @@ function deletePermission(rowID) {
 }
 
 function editIntern(rowID) {
+    //console.log('editIntern(' + rowID + ')');
+
     var nr = $('#' + rowID).attr('nummer');
+    //console.log('Nr: ' + nr);
 
     //Neuer Eintrag
     if (rowID.indexOf('new-row') == 0) {
+        //console.log(1);
         var value = $('#display_new_' + nr).val();
         value = $('input[name="group_name"]')[0].value + '_' + formatDisplayToIntern(value);
         $('#intern_new_' + nr).val(value);
     } else {
+        //console.log(2);
         var value = $('#display_' + nr).val();
         value = $('input[name="group_name"]')[0].value + '_' + formatDisplayToIntern(value);
         $('#intern_' + nr).val(value);
@@ -108,6 +116,8 @@ function editIntern(rowID) {
 }
 
 function formatDisplayToIntern(value) {
+    if (value === undefined) return '';
+
     value = value.toLowerCase();
     value = value.replace(' ', '_');
     value = value.replace('ä', 'ae');

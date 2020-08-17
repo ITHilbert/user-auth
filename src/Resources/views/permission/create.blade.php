@@ -54,7 +54,7 @@
                             </tr>
                             <tr id="vorlage" class="d-none" nummer="x">
                                 <td id="new-id" scope="row" class="d-none"></td>
-                                <td><input type="text" id="vorlage_display" onchange="editIntern('new-row-x')" class="form-control input-text"></td>
+                                <td><input type="text" id="vorlage_display" class="form-control input-text"></td>
                                 <td><input type="text" id="vorlage_intern" class="form-control input-text"></td>
                                 <td><button type="button" id="btnVorlage" data-toggle="tooltip" title="Löschen" class="btn btn-delete"><i class="fas fa-minus-circle"></i></button></td>
                             </tr>
