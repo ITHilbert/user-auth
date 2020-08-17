@@ -13,9 +13,12 @@ use ITHilbert\LaravelKit\Helpers\HButton;
 use ITHilbert\UserAuth\Entities\Permission;
 use ITHilbert\UserAuth\Entities\PermissionGroup;
 use ITHilbert\UserAuth\Entities\Role;
+use ITHilbert\UserAuth\Traits\Format;
+
 
 class RoleController extends Controller
 {
+    use Format;
 
     /**
      * Display a listing of the resource.
@@ -59,9 +62,8 @@ class RoleController extends Controller
      * @return Response
      */
     public function create()    {
+
         $permissionsgroups = PermissionGroup::all();
-        //$permissionsgroups1 = PermissionGroup::where('deleted_at', null)->where('is_group', 0)->get();
-        //$permissionsgroups2 = PermissionGroup::where('deleted_at', null)->where('is_group', 1)->get();
 
         return view('userauth::role.create')->with(compact('permissionsgroups'));
     }
@@ -75,15 +77,12 @@ class RoleController extends Controller
     {
         $request->validate([
             'role_display' => 'required | unique:roles',
+            'role' => 'required | unique:roles',
         ]);
 
-        $rol = $request->role_display;
-
         $role = new Role();
-        $role->role_display = $rol;
-
-        $prol = strtolower( str_replace(' ','', $role));
-        $role->role = $rol;
+        $role->role_display = $request->role_display;
+        $role->role = $this->formatDisplayToIntern($request->role);
         $role->save();
 
         //Rechte speichern
@@ -133,12 +132,13 @@ class RoleController extends Controller
         if($role->role_display != $request->role_display || $request->role_display == ''){
             $request->validate([
                 'role_display' => 'required | unique:roles',
+                'role' => 'required | unique:roles',
             ]);
         }
 
         //Rolenname setzen
         $role->role_display = $request->role_display;
-        $role->role = strtolower( str_replace(' ','', $request->role_display));
+        $role->role = $this->formatDisplayToIntern($request->role);
         $erg = $role->update();
 
         //Rechte speichern
@@ -150,9 +150,6 @@ class RoleController extends Controller
                 $role->permissions()->save($perm);
             }
         }
-
-        //return redirect()->route('role.index')->with([ 'success' => Lang::get('userauth::role.MsgEditSuccess')]);
-
 
         return redirect()->route('role.index')->with(['message'    => Lang::get('userauth::role.MsgEditSuccess') ]);
     }

@@ -21,6 +21,7 @@ return [
     'id'                    => 'ID',
     'role'                  => 'Rolle',
     'role_display'          => 'Rollenname',
+    'role_intern'           => 'Rolle intern',
 
     //Meldungen
     'MsgAddSuccess'         => 'Die Rolle wurde erfolgreich angelegt.',
