@@ -14,9 +14,11 @@ return [
 
     //Views Header
     'header_change'         => 'Passwort ändern',
+    'header_pw_forgotten'   => 'Passwort vergessen',
 
     'id'                  => 'ID',
     'password'            => 'Passwort',
+    'password-new'        => 'Neues Passwort',
     'password-confirm'    => 'Passwort wiederholen',
 
     //Meldungen

@@ -20,5 +20,5 @@ return [
     'email'               => 'E-Mail Addresse',
     'password'            => 'Passwort',
     'remember'            => 'Eingeloggt bleiben',
-
+    'pwforgotten'         => 'Passwort vergessen',
 ];

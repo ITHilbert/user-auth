@@ -23,6 +23,8 @@ class CreateMyUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->string('edit_pw_token', 255)->nullable();
+            $table->timestamp('edit_pw_token_end')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

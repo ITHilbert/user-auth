@@ -78,6 +78,15 @@ Route::group(['namespace' => 'ITHilbert\UserAuth\Http\Controllers',
 	Route::get('login', 'LoginController@showLoginForm')->name('login');
 	Route::post('login', 'LoginController@login');
 
-	Route::any('no-permission', 'PermissionController@noPermission')->name('no-permission');
+    Route::any('no-permission', 'PermissionController@noPermission')->name('no-permission');
+
+    //Passwort vergessen
+    Route::any('password/tokensend', 'PasswordController@tokensend')->name('password.tokensend');
+    Route::any('password/forgotten', 'PasswordController@forgotten')->name('password.forgotten');
+    Route::post('password/sendtocken', 'PasswordController@sendtocken')->name('password.sendtocken');
+    Route::post('password/updatewithtoken', 'PasswordController@updatewithtoken')->name('password.updatewithtoken');
+    Route::get('password/editwithtoken/{token}/{email}', 'PasswordController@editwithtoken')->name('password.editwithtoken');
+
+
 
 });

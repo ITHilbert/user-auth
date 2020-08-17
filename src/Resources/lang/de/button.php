@@ -20,5 +20,6 @@ return [
     'addUser'               => 'Neuer Benutzer',
     'editPassword'          => 'Passwort ändern',
     'login'                 => 'Login',
-    
+    'send'                  => 'Senden',
+
 ];

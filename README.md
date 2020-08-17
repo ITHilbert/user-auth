@@ -51,5 +51,7 @@ Password: password
 
 
 ## ToDo
-- Passwort vergessen
+- Login Fehlversuche -> Login sperren für einen größer werdenden Zeitraum
+- Zeit bis zum nächsten Login reset
 - Register new User
+- 2 Faktor Login (z.B. Mail und Google 2 Faktor)
