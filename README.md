@@ -36,6 +36,23 @@ php artisan db:seed --class="ITHilbert\UserAuth\Database\Seeders\DatabaseSeeder"
     App\Menu\Filters\hasPermissionAnd::class,
 ```
 
+## App\User
+```
+namespace App;
+
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use ITHilbert\UserAuth\Traits\UserAuth;
+
+class User extends Authenticatable
+{
+    use Notifiable;
+    use UserAuth;
+
+    ...
+```
+
+
 ## Benutzer
 User: admin@admin.com
 Password: password

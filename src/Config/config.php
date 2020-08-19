@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'name' => 'UserAuth'
+    'name' => 'UserAuth',
+    'loadFromPackage' => true,      //Laden der Views aus dem Package
 ];
