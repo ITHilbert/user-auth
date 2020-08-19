@@ -97,11 +97,11 @@
         <hr>
 
         {{-- Buttons --}}
-        <div class="form-group row mb-2">
-            <div class="col-md-4 text-right">
+        <div class="form-group row ">
+            <div class="col-md-6 col-6 text-left mb-2">
                 <button-back route="{{ route('role.index') }}">@lang('userauth::button.back')</button-back>
             </div>
-            <div class="col-md-6 text-left">
+            <div class="col-md-6 col-6 text-right mb-2">
                 <button-save>@lang('userauth::button.save')</button-save>
             </div>
         </div>

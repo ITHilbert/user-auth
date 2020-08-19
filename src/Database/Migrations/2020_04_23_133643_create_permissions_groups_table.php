@@ -17,7 +17,7 @@ class CreatePermissionsGroupsTable extends Migration
             $table->bigIncrements('id');
             $table->string('group_name')->unique();
             $table->string('group_display');
-            $table->integer('is_group', 1)->default(0);
+            $table->integer('is_group')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
