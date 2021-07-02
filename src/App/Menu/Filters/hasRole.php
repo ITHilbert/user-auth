@@ -14,7 +14,7 @@ class hasRole implements FilterInterface
     {
 
         if (isset($item['hasRole']) ) {
-            $user =  User::find(Auth::id());
+            $user =  Auth::user()->load('role');
             $role =  $item['hasRole'];
 
             //Ausnahmen Admin und superadmin

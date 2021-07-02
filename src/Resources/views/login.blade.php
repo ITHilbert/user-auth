@@ -11,8 +11,8 @@
     @yield('meta')
 
     <!-- Styles -->
+    <link rel="stylesheet" href="{{ asset('vendor/vue/vuecomponents.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/userauth/css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/laravelkit/css/laravelkit.css') }}">
 
     <style>
         html, body {
@@ -105,6 +105,6 @@
         </main>
     </div>
 
-    <script src="{{ asset('vendor/laravelkit/js/vuecomponents.js') }}"></script>
+    <script src="{{ asset('vendor/vue/vuecomponents.js') }}"></script>
 </body>
 </html>

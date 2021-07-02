@@ -11,13 +11,7 @@ https://github.com/yajra/laravel-datatables
 ## Install
 ```
 composer require ithilbert/laravel-kit
-php artisan vendor:publish --provider="ITHilbert\LaravelKit\LaravelKitServiceProvider"
-
-composer require laravel/ui
-
-php artisan ui:auth
-
-composer require ithilbert/user-auth
+php artisan install::all
 
 //Daten kopieren
 php artisan vendor:publish --provider="ITHilbert\UserAuth\UserAuthServiceProvider"
@@ -36,7 +30,7 @@ php artisan db:seed --class="ITHilbert\UserAuth\Database\Seeders\DatabaseSeeder"
     App\Menu\Filters\hasPermissionAnd::class,
 ```
 
-## App\User
+### App\User
 ```
 namespace App;
 
@@ -52,6 +46,15 @@ class User extends Authenticatable
     ...
 ```
 
+
+## Routes
+- admin/permissions
+- admin/roles
+- admin/users
+- password/edit
+- password/update
+- login
+- logout
 
 ## Benutzer
 User: admin@admin.com

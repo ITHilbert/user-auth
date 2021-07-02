@@ -4,14 +4,13 @@ namespace ITHilbert\UserAuth\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use ITHilbert\LaravelKit\Traits\VueComboBox;
+use ITHilbert\Vue\Traits\VueComboBox;
 use ITHilbert\UserAuth\Entities\Permission;
 
 class PermissionGroup extends Model
 {
     use SoftDeletes;
     use VueComboBox;
-
 
     protected $table = 'permissions_groups';
     //protected $fillable = [];

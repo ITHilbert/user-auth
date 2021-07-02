@@ -3,25 +3,11 @@
 namespace ITHilbert\UserAuth;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\Facades\Config;
 use Illuminate\View\Compilers\BladeCompiler;
 
 class UserAuthServiceProvider extends ServiceProvider
 {
-    /**
-     * @var string $moduleName
-     */
-    protected $moduleName = 'UserAuth';
-
-    /**
-     * @var string $moduleNameLower
-     */
-    protected $moduleNameLower = 'userauth';
-
-    protected $loadFromPackage = true;
-
-
 
     /**
      * Boot the application events.
@@ -32,17 +18,11 @@ class UserAuthServiceProvider extends ServiceProvider
     {
         $this->registerConfig();
         $this->registerTranslations();
-
         $this->registerViews();
-        /* $this->registerFactories(); */
         $this->loadMigrationsFrom(__DIR__ . '/Database/Migrations');
-
-        /* $this->registerCommands();  */
         $this->registerRoutes();
-
         $this->publishAssets();
         $this->publishMenuFilters();
-
         $this->registerMiddleware();
     }
 
@@ -70,8 +50,6 @@ class UserAuthServiceProvider extends ServiceProvider
         ]);
     }
 
-
-
     /**
      * Register Routes.
      *
@@ -82,15 +60,6 @@ class UserAuthServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/Routes/web.php');
     }
 
-    /**
-     * Register commands.
-     *
-     * @return void
-     */
-    protected function registerCommands()
-    {
-        /* $this->commands(\Modules\Userauth\Console\PublishCommand::class); */
-    }
 
     /**
      * Register the service provider.
@@ -113,7 +82,6 @@ class UserAuthServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ .'/Config/config.php' => config_path('userauth.php'),
         ]);
-        $loadFromPackage= Config::get('userauth.loadFromPackage', true);
     }
 
     /**
@@ -127,11 +95,7 @@ class UserAuthServiceProvider extends ServiceProvider
             __DIR__ .'/Resources/views' => resource_path('views/vendor/userauth')
         ]);
 
-        if($this->loadFromPackage === true){
-            $this->loadViewsFrom(__DIR__ .'/Resources/views', 'userauth');
-        }else{
-            $this->loadViewsFrom(resource_path('Resources/views/vendor/userauth'), 'userauth');
-        }
+        $this->loadViewsFrom(resource_path('Resources/views/vendor/userauth'), 'userauth');
     }
 
     /**
@@ -145,34 +109,7 @@ class UserAuthServiceProvider extends ServiceProvider
             __DIR__.'/Resources/lang' => resource_path('lang/vendor/userauth'),
         ]);
 
-        if($this->loadFromPackage === true){
-            $this->loadTranslationsFrom(__DIR__ .'/Resources/lang', 'userauth');
-        }else{
-            $this->loadTranslationsFrom( resource_path('/Resources/lang/vendor/userauth'), 'userauth');
-        }
-
-    }
-
-    /**
-     * Register an additional directory of factories.
-     *
-     * @return void
-     */
-    public function registerFactories()
-    {
-        /* if (! app()->environment('production') && $this->app->runningInConsole()) {
-            app(Factory::class)->load(module_path($this->moduleName, 'Database/factories'));
-        } */
-    }
-
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
-    {
-        return [];
+        $this->loadTranslationsFrom( resource_path('/Resources/lang/vendor/userauth'), 'userauth');
     }
 
 

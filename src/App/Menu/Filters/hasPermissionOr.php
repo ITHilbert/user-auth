@@ -13,7 +13,7 @@ class hasPermissionOr implements FilterInterface
     public function transform($item)
     {
         if (isset($item['hasPermissionOr']) ) {
-            $user =  User::find(Auth::id());
+            $user =  Auth::user()->load('role');
 
             if( !$user->hasPermissionOr($item['hasPermissionOr']) ){
                 return false;
