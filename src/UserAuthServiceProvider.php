@@ -92,7 +92,9 @@ class UserAuthServiceProvider extends ServiceProvider
     public function registerViews()
     {
         $this->publishes([
-            __DIR__ .'/Resources/views' => resource_path('views/vendor/userauth')
+            __DIR__ .'/Resources/views' => resource_path('views/vendor/userauth'),
+            __DIR__ .'/Resources/views/layouts/app.blade.php' => resource_path('views/layouts/app.blade.php'),
+            __DIR__ .'/Resources/views/layouts/master.blade.php' => resource_path('views/layouts/master.blade.php'),
         ]);
 
         $this->loadViewsFrom(resource_path('Resources/views/vendor/userauth'), 'userauth');

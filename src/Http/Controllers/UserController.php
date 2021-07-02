@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Yajra\DataTables\Facades\DataTables;
 
-use App\User;
+use App\Models\User;
 use ITHilbert\LaravelKit\Entities\Log;
 use ITHilbert\LaravelKit\Helpers\HButton;
 use ITHilbert\UserAuth\Entities\Role;

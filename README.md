@@ -14,13 +14,13 @@ composer require ithilbert/laravel-kit
 php artisan install::all
 
 //Daten kopieren
-php artisan vendor:publish --provider="ITHilbert\UserAuth\UserAuthServiceProvider"
+php artisan vendor:publish --provider="ITHilbert\UserAuth\UserAuthServiceProvider" --force
 
 //Tabellen erstellen
 php artisan migrate
 
 //Daten einspielen
-php artisan db:seed --class="ITHilbert\UserAuth\Database\Seeders\DatabaseSeeder"
+php artisan db:seed --class="ITHilbert\UserAuth\Database\Seeders\DatabaseSeeder" 
 
 // Menü Filter registieren
 // Datei /config/adminlte.php öffnen und beim Punkt filters folgendes ergänzen:
