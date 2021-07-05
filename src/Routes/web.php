@@ -1,5 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use ITHilbert\UserAuth\Http\Controllers\PermissionController;
+use ITHilbert\UserAuth\Http\Controllers\LoginController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,23 +14,20 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::group(['namespace' => 'ITHilbert\UserAuth\Http\Controllers',
-              'middleware' => ['web']], function () {
+
+Route::middleware(['web'])
+        ->group(function () {
+
 
 	//Permission routes
-	Route::group([
-	    'prefix' => 'admin/permissions',
-	    'middleware' => ['auth', 'hasPermission:permission_read'] ], function(){
-
-	    Route::any('/',             'PermissionController@index')->name('permission');
-	    Route::any('index',         'PermissionController@index')->name('permission.index');
-	    Route::get('create',        'PermissionController@create')->name('permission.create')->middleware('hasPermission:permission_create');
-	    Route::post('store',        'PermissionController@store')->name('permission.store')->middleware('hasPermission:permission_create');
-	    Route::get('edit/{id}',     'PermissionController@edit')->name('permission.edit')->middleware('hasPermission:permission_edit');
-	    Route::post('update/{id}',  'PermissionController@update')->name('permission.update')->middleware('hasPermission:permission_edit');
-	    Route::delete('delete/{id}','PermissionController@delete')->name('permission.delete')->middleware('hasPermission:permission_edit');
-	    //Route::get('show/{id}',     'PermissionController@show')->name('permission.show');
-
+	Route::middleware(['auth', 'hasPermission:permission_read'])->prefix('admin/permissions')->group(function () {
+	    Route::any('/',             [PermissionController::class, 'index'])->name('permission');
+	    Route::any('index',         [PermissionController::class, 'index'])->name('permission.index');
+	    Route::get('create',        [PermissionController::class, 'create'])->name('permission.create')->middleware('hasPermission:permission_create');
+	    Route::post('store',        [PermissionController::class, 'store'])->name('permission.store')->middleware('hasPermission:permission_create');
+	    Route::get('edit/{id}',     [PermissionController::class, 'edit'])->name('permission.edit')->middleware('hasPermission:permission_edit');
+	    Route::post('update/{id}',  [PermissionController::class, 'update'])->name('permission.update')->middleware('hasPermission:permission_edit');
+	    Route::delete('delete/{id}',[PermissionController::class, 'delete'])->name('permission.delete')->middleware('hasPermission:permission_edit');
 	});
 
 
@@ -75,10 +76,10 @@ Route::group(['namespace' => 'ITHilbert\UserAuth\Http\Controllers',
 	});
 
 	//Login
-	Route::get('login', 'LoginController@showLoginForm')->name('login');
-	Route::post('login', 'LoginController@login');
+	Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+	Route::post('login', [LoginController::class, 'login']);
 
-    Route::any('no-permission', 'PermissionController@noPermission')->name('no-permission');
+    Route::any('no-permission', [PermissionController::class, 'noPermission'])->name('no-permission');
 
     //Passwort vergessen
     Route::any('password/tokensend', 'PasswordController@tokensend')->name('password.tokensend');
