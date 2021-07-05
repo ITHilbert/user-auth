@@ -1,11 +1,11 @@
-@extends('userauth::layouts.master')
+@extends('userauth::layouts.userauth')
 
 @section('title', Lang::get('userauth::user.header_edit'))
 
 {{-- @section('content_header')
 @stop --}}
 
-@section('content')  
+@section('content')
 <card title="@lang('userauth::user.header_edit')">
 <div>
     @include('include.message')
@@ -44,7 +44,7 @@
             <combobox name="role_id" :options="{{ $roles }}"  value="{{ old('role_id', $user->role_id) }}" required ></combobox>
             </div>
         </div>
-        
+
         {{-- Buttons --}}
         <div class="form-group row mb-2">
             <div class="col-md-4 text-right">
@@ -54,7 +54,7 @@
                 <button-save>@lang('userauth::button.save')</button-save>
             </div>
         </div>
-    </hform>	 
-</div>    
+    </hform>
+</div>
 </card>
 @stop

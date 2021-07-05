@@ -1,4 +1,4 @@
-@extends('userauth::layouts.master')
+@extends('userauth::layouts.userauth')
 
 @section('title', Lang::get('userauth::role.header_edit'))
 

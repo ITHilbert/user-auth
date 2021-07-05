@@ -24,6 +24,9 @@ class UserAuthServiceProvider extends ServiceProvider
         $this->publishAssets();
         $this->publishMenuFilters();
         $this->registerMiddleware();
+
+        //Commands Registrieren
+        $this->commands( \ITHilbert\UserAuth\App\Console\Commands\UserAuthCopyFiles::class );
     }
 
     public function publishMenuFilters(){
@@ -93,8 +96,7 @@ class UserAuthServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__ .'/Resources/views' => resource_path('views/vendor/userauth'),
-            __DIR__ .'/Resources/views/layouts/app.blade.php' => resource_path('views/layouts/app.blade.php'),
-            __DIR__ .'/Resources/views/layouts/master.blade.php' => resource_path('views/layouts/master.blade.php'),
+            __DIR__ .'/Resources/views/layouts/userauth.blade.php' => resource_path('views/layouts/userauth.blade.php'),
         ]);
 
         $this->loadViewsFrom(resource_path('Resources/views/vendor/userauth'), 'userauth');

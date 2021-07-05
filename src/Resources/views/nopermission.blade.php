@@ -1,14 +1,14 @@
-@extends('userauth::layouts.master')
+@extends('userauth::layouts.userauth')
 
 @section('title', Lang::get('userauth::permission.header_no'))
 
 {{-- @section('content_header')
 @stop --}}
 
-@section('content')  
+@section('content')
 <card title="@lang('userauth::permission.header_no')">
 <div>
     <h3>@lang('userauth::permission.no-permission')</h3>
-</div>    
+</div>
 </card>
 @stop

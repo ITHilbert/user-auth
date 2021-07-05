@@ -13,7 +13,6 @@ use ITHilbert\LaravelKit\Helpers\HButton;
 use ITHilbert\UserAuth\Entities\Permission;
 use ITHilbert\UserAuth\Entities\PermissionGroup;
 use ITHilbert\UserAuth\Traits\Format;
-use function ITHilbert\UserAuth\Helpers\formatDisplayToIntern;
 
 class PermissionController extends Controller
 {
@@ -25,6 +24,7 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
+
 
         $data = PermissionGroup::latest()->where('deleted_at', NULL)->get();
 

@@ -1,8 +1,8 @@
-@extends('userauth::layouts.master')
+@extends('userauth::layouts.userauth')
 
 @section('title', Lang::get('userauth::user.header_create'))
 
-@section('content')  
+@section('content')
 <card title="@lang('userauth::user.header_create')">
 <div>
     @include('include.message')
@@ -52,8 +52,8 @@
                 <button-save>@lang('userauth::button.save')</button-save>
             </div>
         </div>
-    </hform>	 
-</div>    
+    </hform>
+</div>
 </card>
 @stop
 

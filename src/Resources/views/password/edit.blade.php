@@ -1,4 +1,4 @@
-@extends('userauth::layouts.master')
+@extends('userauth::layouts.userauth')
 
 @section('title', Lang::get('userauth::password.header_change'))
 
@@ -10,7 +10,7 @@
                 <div>
                     @include('include.message')
                     <hform action="{{ route('password.update') }}">
-        
+
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">@lang('userauth::password.password')</label>
 

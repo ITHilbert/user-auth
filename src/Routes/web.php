@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use ITHilbert\UserAuth\Http\Controllers\PermissionController;
 use ITHilbert\UserAuth\Http\Controllers\LoginController;
+use ITHilbert\UserAuth\Http\Controllers\RoleController;
+use ITHilbert\UserAuth\Http\Controllers\UserController;
+use ITHilbert\UserAuth\Http\Controllers\PasswordController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +24,10 @@ Route::middleware(['web'])
 
 
 	//Permission routes
-	Route::middleware(['auth', 'hasPermission:permission_read'])->prefix('admin/permissions')->group(function () {
+	Route::middleware(['auth', 'hasPermission:permission_read'])
+        ->prefix('admin/permissions')
+        ->group(function () {
+
 	    Route::any('/',             [PermissionController::class, 'index'])->name('permission');
 	    Route::any('index',         [PermissionController::class, 'index'])->name('permission.index');
 	    Route::get('create',        [PermissionController::class, 'create'])->name('permission.create')->middleware('hasPermission:permission_create');
@@ -32,47 +39,46 @@ Route::middleware(['web'])
 
 
 	//role
-	Route::group([
-	    'prefix' => 'admin/roles',
-	    'middleware' => ['auth', 'hasPermission:role_read'] ], function(){
+	Route::middleware(['auth', 'hasPermission:role_read'])
+	        ->prefix('admin/roles')
+            ->group(function () {
 
-	    Route::any('/',             'RoleController@index')->name('role');
-	    Route::any('index',         'RoleController@index')->name('role.index');
-	    Route::get('create',        'RoleController@create')->name('role.create')->middleware('hasPermission:role_create');
-	    Route::post('store',        'RoleController@store')->name('role.store')->middleware('hasPermission:role_create');
-	    Route::get('edit/{id}',     'RoleController@edit')->name('role.edit')->middleware('hasPermission:role_edit');
-	    Route::post('update/{id}',  'RoleController@update')->name('role.update')->middleware('hasPermission:role_edit');
-	    Route::delete('delete/{id}','RoleController@delete')->name('role.delete')->middleware('hasPermission:role_delete');
-	    //Route::get('show/{id}',     'RoleController@show')->name('role.show');
+	    Route::any('/',             [RoleController::class, 'index'])->name('role');
+	    Route::any('index',         [RoleController::class, 'index'])->name('role.index');
+	    Route::get('create',        [RoleController::class, 'create'])->name('role.create')->middleware('hasPermission:role_create');
+	    Route::post('store',        [RoleController::class, 'store'])->name('role.store')->middleware('hasPermission:role_create');
+	    Route::get('edit/{id}',     [RoleController::class, 'edit'])->name('role.edit')->middleware('hasPermission:role_edit');
+	    Route::post('update/{id}',  [RoleController::class, 'update'])->name('role.update')->middleware('hasPermission:role_edit');
+	    Route::delete('delete/{id}',[RoleController::class, 'delete'])->name('role.delete')->middleware('hasPermission:role_delete');
 	});
 
 
 	//User
-	Route::group([
-	    'prefix' => 'admin/users',
-	    'middleware' => ['auth', 'hasPermission:user_read'] ], function(){
+    //'hasPermission:user_read'
+    Route::middleware(['auth' ])
+        ->prefix('admin/users')
+        ->group(function () {
 
-	    Route::any('/',             'UserController@index')->name('user');
-	    Route::any('index',         'UserController@index')->name('user.index');
-	    Route::get('create',        'UserController@create')->name('user.create')->middleware('hasPermission:user_create');
-	    Route::post('store',        'UserController@store')->name('user.store')->middleware('hasPermission:user_create');
-	    Route::get('edit/{id}',     'UserController@edit')->name('user.edit')->middleware('hasPermission:user_edit');
-	    Route::post('update/{id}',  'UserController@update')->name('user.update')->middleware('hasPermission:user_edit');
-	    Route::delete('delete/{id}','UserController@delete')->name('user.delete')->middleware('hasPermission:user_delete');
-	    //Route::get('show/{id}',     'UserController@show')->name('user.show')->middleware('hasPermission:user_read');;
+	    Route::any('/',             [UserController::class, 'index'])->name('user');
+	    Route::any('index',         [UserController::class, 'index'])->name('user.index');
+	    Route::get('create',        [UserController::class, 'create'])->name('user.create')->middleware('hasPermission:user_create');
+	    Route::post('store',        [UserController::class, 'store'])->name('user.store')->middleware('hasPermission:user_create');
+	    Route::get('edit/{id}',     [UserController::class, 'edit'])->name('user.edit')->middleware('hasPermission:user_edit');
+	    Route::post('update/{id}',  [UserController::class, 'update'])->name('user.update')->middleware('hasPermission:user_edit');
+	    Route::delete('delete/{id}',[UserController::class, 'delete'])->name('user.delete')->middleware('hasPermission:user_delete');
 	});
 
 
-	//Password
-	Route::group([
-	    'middleware' => ['auth']], function(){
+	//Password und Logout
+    Route::middleware(['auth'])
+        ->group(function () {
 
 	    //Password edit
-	    Route::get('password/edit',    'PasswordController@edit')->name('password.edit');
-	    Route::post('password/update', 'PasswordController@update')->name('password.update');
+	    Route::get('password/edit',    [PasswordController::class, 'edit'])->name('password.edit');
+	    Route::post('password/update', [PasswordController::class, 'update'])->name('password.update');
 
 	    //Logout
-	    Route::any('logout', 'LoginController@logout')->name('logout');
+	    Route::any('logout', [LoginController::class, 'logout'])->name('logout');
 	});
 
 	//Login
@@ -82,12 +88,9 @@ Route::middleware(['web'])
     Route::any('no-permission', [PermissionController::class, 'noPermission'])->name('no-permission');
 
     //Passwort vergessen
-    Route::any('password/tokensend', 'PasswordController@tokensend')->name('password.tokensend');
-    Route::any('password/forgotten', 'PasswordController@forgotten')->name('password.forgotten');
-    Route::post('password/sendtocken', 'PasswordController@sendtocken')->name('password.sendtocken');
-    Route::post('password/updatewithtoken', 'PasswordController@updatewithtoken')->name('password.updatewithtoken');
-    Route::get('password/editwithtoken/{token}/{email}', 'PasswordController@editwithtoken')->name('password.editwithtoken');
-
-
-
+    Route::any('password/tokensend',        [PasswordController::class, 'tokensend'])->name('password.tokensend');
+    Route::any('password/forgotten',        [PasswordController::class, 'forgotten'])->name('password.forgotten');
+    Route::post('password/sendtocken',      [PasswordController::class, 'sendtocken'])->name('password.sendtocken');
+    Route::post('password/updatewithtoken', [PasswordController::class, 'updatewithtoken'])->name('password.updatewithtoken');
+    Route::get('password/editwithtoken/{token}/{email}', [PasswordController::class, 'editwithtoken'])->name('password.editwithtoken');
 });
