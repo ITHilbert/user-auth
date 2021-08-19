@@ -63,7 +63,7 @@ class RoleController extends Controller
      */
     public function create()    {
 
-        $permissionsgroups = PermissionGroup::all();
+        $permissionsgroups = PermissionGroup::where('id', '!=', 3 )->get();
 
         return view('userauth::role.create')->with(compact('permissionsgroups'));
     }
@@ -112,7 +112,7 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = Role::findOrFail($id);
-        $permissionsgroups = PermissionGroup::all();
+        $permissionsgroups = PermissionGroup::where('id', '!=', 3 )->get();
 
         return view('userauth::role.edit')->with(compact('role', 'permissionsgroups'));
     }
