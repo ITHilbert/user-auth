@@ -34,7 +34,7 @@ class Role extends Model
      */
     public function hasPermission($permission){
         //Admin darf immer
-        if($this->role == 'super' || $this->role == 'admin'){
+        if($this->role == 'dev' || $this->role == 'admin'){
             return true;
         }
 
@@ -53,7 +53,7 @@ class Role extends Model
      */
     public function hasPermissionOr($permissions){
         //Admin darf immer
-        if($this->role == 'super' || $this->role == 'admin'){
+        if($this->role == 'dev' || $this->role == 'admin'){
             return true;
         }
 
@@ -76,7 +76,7 @@ class Role extends Model
      */
     public function hasPermissionAnd($permissions){
         //Admin darf immer
-        if($this->role == 'super' || $this->role == 'admin'){
+        if($this->role == 'dev' || $this->role == 'admin'){
             return true;
         }
 

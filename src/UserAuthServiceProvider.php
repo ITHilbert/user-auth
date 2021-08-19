@@ -42,7 +42,7 @@ class UserAuthServiceProvider extends ServiceProvider
         $this->app['router']->aliasMiddleware('hasPermission', \ITHilbert\UserAuth\Http\Middleware\hasPermission::class);
         $this->app['router']->aliasMiddleware('hasRole', \ITHilbert\UserAuth\Http\Middleware\hasRole::class);
         $this->app['router']->aliasMiddleware('isAdmin', \ITHilbert\UserAuth\Http\Middleware\isAdmin::class);
-        $this->app['router']->aliasMiddleware('isSuper', \ITHilbert\UserAuth\Http\Middleware\isSuper::class);
+        $this->app['router']->aliasMiddleware('isDev', \ITHilbert\UserAuth\Http\Middleware\isDev::class);
     }
 
 
