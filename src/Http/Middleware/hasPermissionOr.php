@@ -18,7 +18,7 @@ class hasPermissionOr
     public function handle(Request $request, Closure $next, $permissions)
     {
         $user = User::find(Auth::id());
-        //Admin und Superadmin  haben immer das Recht
+        //Admin und Developer  haben immer das Recht
         if($user->role_id <= 2){
             return $next($request);
         }

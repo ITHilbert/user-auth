@@ -77,7 +77,7 @@
                                         @foreach ($group->getPermisssionsSingle() as $perm)
                                             <tr>
                                                 <th colspan="3" scope="row">{{ $perm->permission_display }}</th>
-                                                <td colspan="2">
+                                                <td colspan="2" class="text-right">
                                                     <checkbox name="permission[{{ $perm->id }}]"
                                                               value="{{ old('permission['. $perm->id .']' , true) }}">
                                                     </checkbox>
