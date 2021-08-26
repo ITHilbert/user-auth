@@ -18,6 +18,9 @@ trait UserAuth
 
     public function __construct() {
         $this->fillable[] = 'role_id';
+        $this->fillable[] = 'firstname';
+        $this->fillable[] = 'lastname';
+        $this->fillable[] = 'smallname';
     }
 
     public function getKey(){

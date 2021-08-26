@@ -99,7 +99,11 @@ class UserAuthServiceProvider extends ServiceProvider
             __DIR__ .'/Resources/views/layouts/userauth.blade.php' => resource_path('views/layouts/userauth.blade.php'),
         ]);
 
-        $this->loadViewsFrom(resource_path('Resources/views/vendor/userauth'), 'userauth');
+        if(config('userauth.view') == 'ressources'){
+            $this->loadViewsFrom(resource_path('Resources/views/vendor/userauth'), 'userauth');
+        }else{
+            $this->loadViewsFrom(__DIR__ .'/Resources/views', 'userauth');
+        }
     }
 
     /**
@@ -113,7 +117,11 @@ class UserAuthServiceProvider extends ServiceProvider
             __DIR__.'/Resources/lang' => resource_path('lang/vendor/userauth'),
         ]);
 
-        $this->loadTranslationsFrom( resource_path('/Resources/lang/vendor/userauth'), 'userauth');
+        if(config('userauth.view') == 'ressources'){
+            $this->loadTranslationsFrom( resource_path('/Resources/lang/vendor/userauth'), 'userauth');
+        }else{
+            $this->loadTranslationsFrom( __DIR__ .'/Resources/lang', 'userauth');
+        }
     }
 
 
