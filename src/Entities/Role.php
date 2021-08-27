@@ -3,10 +3,8 @@
 namespace ITHilbert\UserAuth\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use ITHilbert\Vue\Traits\VueComboBox;
-use ITHilbert\UserAuth\Entities\Permission;
 
 class Role extends Model
 {
