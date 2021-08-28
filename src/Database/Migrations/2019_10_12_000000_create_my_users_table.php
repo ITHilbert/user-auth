@@ -17,34 +17,34 @@ class CreateMyUsersTable extends Migration
 
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('role_id')->default(2);
+            $table->bigInteger('role_id')->default(2)->comment('Role');
 
-            $table->string('firstname', 50)->nullable();
-            $table->string('lastname', 50)->nullable();
-            $table->string('name', 100)->nullable();
-            $table->string('smallname', 10)->nullable();
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->bigInteger('anrede_id')->default(1)->comment('Anrede');
+            $table->string('title',50)->nullable()->comment('Titel');
+            $table->string('firstname', 50)->nullable()->comment('Vorname');
+            $table->string('lastname', 50)->nullable()->comment('Nachname');
+            $table->string('name', 100)->nullable()->comment('Name');
+            $table->string('smallname', 10)->nullable()->comment('Kürzel');
+            $table->string('email')->unique()->comment('E-Mail');
+            $table->timestamp('email_verified_at')->nullable()->comment('E-Mail bestätigt am');
+            $table->string('password')->comment('Passwort');
             $table->rememberToken();
             $table->string('edit_pw_token', 255)->nullable();
             $table->timestamp('edit_pw_token_end')->nullable();
-            $table->bigInteger('anrede_id')->default(1)->comment('1 = Herr (Mr) 2 = Frau (Mrs)');
-            $table->string('title',50)->nullable();
-            $table->bigInteger('signature_rule_id')->default(1);
             $table->string('street',255)->nullable()->comment('Straße');
             $table->string('postcode',255)->nullable()->comment('PLZ');
             $table->string('city',255)->nullable()->comment('Ort');
             $table->string('country',255)->nullable()->comment('Land');
-            $table->string('ustid',255)->nullable()->nullable()->comment('It is a tax id');
+            $table->bigInteger('signature_rule_id')->default(1)->comment('Signatur');
+            $table->string('ustid',255)->nullable()->nullable()->comment('UmsatzsteuerID');
             $table->string('phone',255)->nullable()->comment('Telefon');
             $table->string('phone2',255)->nullable()->comment('Telefon2');
             $table->string('mobile',255)->nullable()->comment('Mobile');
             $table->string('fax',255)->nullable()->comment('Fax');
             $table->string('private_email',255)->nullable()->comment('Private E-Mail');
             $table->string('skype',255)->nullable()->comment('Skype');
-            $table->double('hourly_rate', 8, 2)->nullable();
-            $table->date('birthday')->nullable();
+            $table->double('hourly_rate', 8, 2)->default(0)->comment('Stundensatz');
+            $table->date('birthday')->nullable()->comment('Geburtstag');
             $table->text('comment')->nullable()->comment('Kommentar');
 
             $table->timestamps();

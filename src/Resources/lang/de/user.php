@@ -29,6 +29,25 @@ return [
     'password'              => 'Passwort',
     'password2'             => 'Passwort wiederholen',
 
+    'anrede'                => 'Anrede',
+    'title'                 => 'Titel',
+    'street'                => 'Straße',
+    'postcode'              => 'PLZ',
+    'city'                  => 'Ort',
+    'country'               => 'Land',
+    'signature_rule'        => 'Signatur',
+    'ustid'                 => 'UmsatzsteuerID',
+    'phone'                 => 'Telefon',
+    'phone2'                => 'Telefon2',
+    'mobile'                => 'Mobile',
+    'fax'                   => 'Fax',
+    'private_email'         => 'Private E-Mail',
+    'skype'                 => 'Skype',
+    'hourly_rate'           => 'Stundensatz',
+    'birthday'              => 'Geburtstag',
+    'comment'               => 'Kommentar',
+
+
     //Meldungen
     'MsgAddSuccess'         => 'Der Benutzer wurde erfolgreich angelegt.',
     'MsgEditSuccess'        => 'Der Benutzer wurde erfolgreich angepasst',

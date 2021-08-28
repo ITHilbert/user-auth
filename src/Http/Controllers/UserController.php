@@ -84,6 +84,24 @@ class UserController extends Controller
         $user->lastname = $request->lastname ?? '';
         $user->smallname = $request->smallname ?? '';
 
+        $user->anrede_id = $request->anrede_id ?? '1';
+        $user->title = $request->title ?? '';
+        $user->private_email = $request->private_email ?? '';
+        $user->street = $request->street ?? '';
+        $user->postcode = $request->postcode ?? '';
+        $user->city = $request->city ?? '';
+        $user->country = $request->country ?? '';
+        $user->signature_rule_id = $request->signature_rule_id ?? '1';
+        $user->ustid = $request->ustid ?? '';
+        $user->phone = $request->phone ?? '';
+        $user->phone2 = $request->phone2 ?? '';
+        $user->mobile = $request->mobile ?? '';
+        $user->fax = $request->fax ?? '';
+        $user->skype = $request->skype ?? '';
+        $user->hourly_rate = $request->hourly_rate ?? '';
+        $user->birthday = $request->birthday ?? '';
+        $user->comment = $request->comment ?? '';
+
         $user->save();
 
         if ($user) {
@@ -98,7 +116,7 @@ class UserController extends Controller
 
     //Gibt den Inhalt für das Name Feld zurück
     private function getName(Request $request){
-        switch (config('userauth.user.name')) {
+        switch (config('userauth.name')) {
             case '1':
                 # Vorname Nachname
                 return $request->firstname . ' ' . $request->lastname;
@@ -176,6 +194,24 @@ class UserController extends Controller
         $user->firstname = $request->firstname ?? '';
         $user->lastname = $request->lastname ?? '';
         $user->smallname = $request->smallname ?? '';
+
+        $user->anrede_id = $request->anrede_id ?? '1';
+        $user->title = $request->title ?? '';
+        $user->private_email = $request->private_email ?? '';
+        $user->street = $request->street ?? '';
+        $user->postcode = $request->postcode ?? '';
+        $user->city = $request->city ?? '';
+        $user->country = $request->country ?? '';
+        $user->signature_rule_id = $request->signature_rule_id ?? '1';
+        $user->ustid = $request->ustid ?? '';
+        $user->phone = $request->phone ?? '';
+        $user->phone2 = $request->phone2 ?? '';
+        $user->mobile = $request->mobile ?? '';
+        $user->fax = $request->fax ?? '';
+        $user->skype = $request->skype ?? '';
+        $user->hourly_rate = $request->hourly_rate ?? '';
+        $user->birthday = $request->birthday ?? '';
+        $user->comment = $request->comment ?? '';
 
 
 
