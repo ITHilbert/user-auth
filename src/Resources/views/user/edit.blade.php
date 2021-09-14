@@ -11,7 +11,7 @@ use ITHilbert\UserAuth\App\Classes\SignatureRule;
 @stop --}}
 
 @section('content')
-<card title="@lang('userauth::user.header_edit')">
+<j-card title="@lang('userauth::user.header_edit')">
 <div>
     @include('include.message')
     <hform action="{{ route('user.update', $user->id) }}" >
@@ -275,5 +275,5 @@ use ITHilbert\UserAuth\App\Classes\SignatureRule;
         </div>
     </hform>
 </div>
-</card>
+</j-card>
 @stop

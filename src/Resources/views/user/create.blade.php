@@ -8,7 +8,7 @@ use ITHilbert\UserAuth\App\Classes\SignatureRule;
 @section('title', Lang::get('userauth::user.header_create'))
 
 @section('content')
-<card title="@lang('userauth::user.header_create')">
+<j-card title="@lang('userauth::user.header_create')">
 <div>
     @include('include.message')
     <hform action="{{ route('user.store') }}">
@@ -270,7 +270,7 @@ use ITHilbert\UserAuth\App\Classes\SignatureRule;
         </div>
     </hform>
 </div>
-</card>
+</j-card>
 @stop
 
 

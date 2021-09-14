@@ -34,7 +34,7 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-8">
-                        <card title="@lang('userauth::login.header')">
+                        <j-card title="@lang('userauth::login.header')">
                             <div>
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
@@ -97,7 +97,7 @@
                                     </div>
                                 </form>
                             </div>
-                        </card>
+                        </j-card>
                     </div>
                 </div>
             </div>

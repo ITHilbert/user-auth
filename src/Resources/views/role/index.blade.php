@@ -6,7 +6,7 @@
 @stop --}}
 
 @section('content')
-<card title="@lang('userauth::role.header_list')">
+<j-card title="@lang('userauth::role.header_list')">
 
   @include('include.message')
 
@@ -26,7 +26,7 @@
       <tbody>
       </tbody>
   </table>
-</card>
+</j-card>
 
 
 <dialog-delete title="Rolle löschen" body="Wollen Sie wirklich diese Rolle löschen?" route="{{ route('role.delete',0) }}" ></dialog-delete>
