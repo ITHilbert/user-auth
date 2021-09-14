@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <card title="@lang('userauth::password.header_change')">
+            <jcard title="@lang('userauth::password.header_change')">
                 <div>
                     @include('include.message')
                     <hform action="{{ route('password.update') }}">
