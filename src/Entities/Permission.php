@@ -4,7 +4,7 @@ namespace ITHilbert\UserAuth\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use ITHilbert\Vue\Traits\VueComboBox;
+use ITHilbert\LaravelKit\Traits\VueComboBox;
 use ITHilbert\UserAuth\Entities\PermissionGroup;
 
 class Permission extends Model
