@@ -2,10 +2,8 @@
 
 namespace ITHilbert\UserAuth\Traits;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use ITHilbert\Vue\Traits\VueComboBox;
-use Modules\Userauth\Entities\Role;
+use ITHilbert\LaravelKit\Traits\VueComboBox;
 
 trait UserAuth
 {
