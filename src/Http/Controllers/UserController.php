@@ -69,7 +69,6 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'  => 'required',
             'email' => 'required | email | unique:users',
             'password'  => 'required',
             'password2'  => 'required | same:password',
@@ -77,10 +76,31 @@ class UserController extends Controller
         ]);
 
         $user = new User();
-        $user->name = $request->name;
+        $user->name = $this->getName($request);
         $user->email = $request->email;
         $user->role_id = $request->role_id;
         $user->password = Hash::make($request->password);
+        $user->firstname = $request->firstname ?? '';
+        $user->lastname = $request->lastname ?? '';
+        $user->smallname = $request->smallname ?? '';
+
+        $user->anrede_id = $request->anrede_id ?? '1';
+        $user->title = $request->title ?? '';
+        $user->private_email = $request->private_email ?? '';
+        $user->street = $request->street ?? '';
+        $user->postcode = $request->postcode ?? '';
+        $user->city = $request->city ?? '';
+        $user->country = $request->country ?? '';
+        $user->signature_rule_id = $request->signature_rule_id ?? '1';
+        $user->ustid = $request->ustid ?? '';
+        $user->phone = $request->phone ?? '';
+        $user->phone2 = $request->phone2 ?? '';
+        $user->mobile = $request->mobile ?? '';
+        $user->fax = $request->fax ?? '';
+        $user->skype = $request->skype ?? '';
+        $user->hourly_rate = $request->hourly_rate ?? '';
+        $user->birthday = $request->birthday ?? '';
+        $user->comment = $request->comment ?? '';
 
         $user->save();
 
@@ -91,6 +111,27 @@ class UserController extends Controller
             ]);
         } else {
             return redirect()->back();
+        }
+    }
+
+    //Gibt den Inhalt für das Name Feld zurück
+    private function getName(Request $request){
+        switch (config('userauth.name')) {
+            case '1':
+                # Vorname Nachname
+                return $request->firstname . ' ' . $request->lastname;
+            case '2':
+                # Nachname, Vorname
+                return $request->lastname . ', ' . $request->firstname;
+            case '3':
+                # Nachname
+                return $request->lastname;
+            case '4':
+                # Vorname
+                return $request->firstname;
+            default:
+                # 0 Manuell
+                return $request->name;
         }
     }
 
@@ -121,7 +162,6 @@ class UserController extends Controller
         //Wenn ein neues Passwort gesetzt wurde
         if ($request->password) {
             $request->validate([
-                'name'  => 'required',
                 'email' => 'required | email',
                 'password'  => 'required',
                 'password2'  => 'required | same:password',
@@ -131,7 +171,6 @@ class UserController extends Controller
         }else{
         //Ohne Änderung des Passwortes
             $request->validate([
-                'name'  => 'required',
                 'email' => 'required | email',
                 'role_id' => 'required',
             ]);
@@ -143,16 +182,38 @@ class UserController extends Controller
         //Prüfen ob sich die E-Mail Adresse geändert hat
         if($user->email != $request->email){
             $request->validate([
-                'name'  => 'required',
                 'email' => 'required | email | unique:users',
                 'role_id' => 'required',
             ]);
         }
 
         //Neue Daten speichern
-        $user->name = $request->name;
+        $user->name = $this->getName($request);
         $user->email = $request->email;
         $user->role_id = $request->role_id;
+        $user->firstname = $request->firstname ?? '';
+        $user->lastname = $request->lastname ?? '';
+        $user->smallname = $request->smallname ?? '';
+
+        $user->anrede_id = $request->anrede_id ?? '1';
+        $user->title = $request->title ?? '';
+        $user->private_email = $request->private_email ?? '';
+        $user->street = $request->street ?? '';
+        $user->postcode = $request->postcode ?? '';
+        $user->city = $request->city ?? '';
+        $user->country = $request->country ?? '';
+        $user->signature_rule_id = $request->signature_rule_id ?? '1';
+        $user->ustid = $request->ustid ?? '';
+        $user->phone = $request->phone ?? '';
+        $user->phone2 = $request->phone2 ?? '';
+        $user->mobile = $request->mobile ?? '';
+        $user->fax = $request->fax ?? '';
+        $user->skype = $request->skype ?? '';
+        $user->hourly_rate = $request->hourly_rate ?? '';
+        $user->birthday = $request->birthday ?? '';
+        $user->comment = $request->comment ?? '';
+
+
 
         //Falls das Passwort geändert werden soll
         if ($editPW) {

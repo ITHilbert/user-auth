@@ -6,7 +6,7 @@
 @stop --}}
 
 @section('content')
-<card title="@lang('userauth::role.header_edit')">
+<j-card title="@lang('userauth::role.header_edit')">
 <div>
     @include('include.message')
     <hform action="{{ route('role.update', $role->id) }}">
@@ -108,7 +108,7 @@
         </div>
     </hform>
 </div>
-</card>
+</j-card>
 @stop
 
 

@@ -6,9 +6,9 @@
 @stop --}}
 
 @section('content')
-<card title="@lang('userauth::permission.header_no')">
+<j-card title="@lang('userauth::permission.header_no')">
 <div>
     <h3>@lang('userauth::permission.no-permission')</h3>
 </div>
-</card>
+</j-card>
 @stop

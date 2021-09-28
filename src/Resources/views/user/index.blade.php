@@ -6,7 +6,7 @@
 @stop --}}
 
 @section('content')
-<card title="@lang('userauth::user.header_list')">
+<j-card title="@lang('userauth::user.header_list')">
 
   @include('include.message')
 
@@ -27,7 +27,7 @@
       <tbody>
       </tbody>
   </table>
-</card>
+</j-card>
 
 
 <dialog-delete title="Benutzer löschen" body="Wollen Sie wirklich diesen Benutzer löschen?" route="{{ route('user.delete',0) }}" ></dialog-delete>

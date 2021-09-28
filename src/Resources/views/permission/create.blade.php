@@ -3,7 +3,7 @@
 @section('title', Lang::get('userauth::permission.header_create'))
 
 @section('content')
-<card title="@lang('userauth::permission.header_create')">
+<j-card title="@lang('userauth::permission.header_create')">
 <div>
     @include('include.message')
     <hform action="{{ route('permission.store') }}">
@@ -75,7 +75,7 @@
         </div>
     </hform>
 </div>
-</card>
+</j-card>
 @stop
 
 @section('js')

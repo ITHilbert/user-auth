@@ -6,7 +6,7 @@
 @stop --}}
 
 @section('content')
-<card title="@lang('userauth::permission.header_edit')">
+<j-card title="@lang('userauth::permission.header_edit')">
 <div>
     @include('include.message')
     <hform action="{{ route('permission.update', $permissiongroup->id) }}">
@@ -92,7 +92,7 @@
 
     </hform>
 </div>
-</card>
+</j-card>
 @stop
 
 @section('js')

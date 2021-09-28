@@ -3,7 +3,7 @@
 @section('title', Lang::get('userauth::role.header_create'))
 
 @section('content')
-<card title="@lang('userauth::role.header_create')">
+<j-card title="@lang('userauth::role.header_create')">
 <div>
     @include('include.message')
 
@@ -107,7 +107,7 @@
         </div>
     </hform>
 </div>
-</card>
+</j-card>
 @stop
 
 

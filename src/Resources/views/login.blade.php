@@ -11,8 +11,7 @@
     @yield('meta')
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('vendor/vue/vuecomponents.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/userauth/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <style>
         html, body {
@@ -35,7 +34,7 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-8">
-                        <card title="@lang('userauth::login.header')">
+                        <j-card title="@lang('userauth::login.header')">
                             <div>
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
@@ -98,13 +97,13 @@
                                     </div>
                                 </form>
                             </div>
-                        </card>
+                        </j-card>
                     </div>
                 </div>
             </div>
         </main>
     </div>
 
-    <script src="{{ asset('vendor/vue/vuecomponents.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

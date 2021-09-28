@@ -3,10 +3,7 @@
 namespace App\Menu\Filters;
 
 use JeroenNoten\LaravelAdminLte\Menu\Filters\FilterInterface;
-use Laratrust\Laratrust;
-use ITHilbert\UserAuth\Entities\Role;
 use Illuminate\Support\Facades\Auth;
-use App\User;
 
 class hasRole implements FilterInterface
 {
@@ -14,6 +11,7 @@ class hasRole implements FilterInterface
     {
 
         if (isset($item['hasRole']) ) {
+            if(!Auth::check()) return false;
             $user =  Auth::user()->load('role');
             $role =  $item['hasRole'];
 

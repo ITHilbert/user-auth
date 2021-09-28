@@ -8,7 +8,7 @@
 @stop --}}
 
 @section('content')
-<card title="@lang('userauth::permission.header_list')">
+<j-card title="@lang('userauth::permission.header_list')">
 
   @include('include.message')
 
@@ -30,7 +30,7 @@
       <tbody>
       </tbody>
   </table>
-</card>
+</j-card>
 
 
 <dialog-delete title="Recht löschen" body="Wollen Sie wirklich dieses Recht löschen?" route="{{ route('permission.delete',0) }}" ></dialog-delete>

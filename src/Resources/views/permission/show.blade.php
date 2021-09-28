@@ -6,7 +6,7 @@
 @stop --}}
 
 @section('content')
-<card title="@lang('customer::customer.header_show')">
+<j-card title="@lang('customer::customer.header_show')">
 <div>
     @include('include.message')
         <div class="form-group row mb-2">
@@ -178,7 +178,7 @@
         </div>
 
 </div>
-</card>
+</j-card>
 @stop
 
 @section('adminlte_css')

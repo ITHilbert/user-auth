@@ -2,10 +2,8 @@
 
 namespace ITHilbert\UserAuth\Traits;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use ITHilbert\Vue\Traits\VueComboBox;
-use Modules\Userauth\Entities\Role;
+use ITHilbert\LaravelKit\Traits\VueComboBox;
 
 trait UserAuth
 {
@@ -18,6 +16,26 @@ trait UserAuth
 
     public function __construct() {
         $this->fillable[] = 'role_id';
+        $this->fillable[] = 'anrede_id';
+        $this->fillable[] = 'title';
+        $this->fillable[] = 'firstname';
+        $this->fillable[] = 'lastname';
+        $this->fillable[] = 'smallname';
+        $this->fillable[] = 'street';
+        $this->fillable[] = 'postcode';
+        $this->fillable[] = 'city';
+        $this->fillable[] = 'country';
+        $this->fillable[] = 'signature_rule_id';
+        $this->fillable[] = 'ustid';
+        $this->fillable[] = 'phone';
+        $this->fillable[] = 'phone2';
+        $this->fillable[] = 'mobile';
+        $this->fillable[] = 'fax';
+        $this->fillable[] = 'private_email';
+        $this->fillable[] = 'skype';
+        $this->fillable[] = 'hourly_rate';
+        $this->fillable[] = 'birthday';
+        $this->fillable[] = 'comment';
     }
 
     public function getKey(){
