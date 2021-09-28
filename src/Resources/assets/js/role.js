@@ -1,9 +1,9 @@
 function setInternValue() {
-    var value = document.getElementById('input-text-3').value;
+    var value = document.getElementsByName('role_display')[0].value;
 
     value = formatDisplayToIntern(value);
 
-    document.getElementById('input-text-4').value = value;
+    document.getElementsByName('role')[0].value = value;
 }
 
 
