@@ -1,9 +1,9 @@
 function setInternValue() {
-    var value = document.getElementsByName('role_display')[0].value;
+    var value = document.getElementById('role_display').value;
 
     value = formatDisplayToIntern(value);
 
-    document.getElementsByName('role')[0].value = value;
+    document.getElementById('role').value = value;
 }
 
 
