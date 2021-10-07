@@ -13,7 +13,7 @@ class hasPermission implements FilterInterface
 
         if (isset($item['hasPermission']) ) {
             if(!Auth::check()) return false;
-            $user =  Auth::user()->load('role');
+            $user =  Auth::user();
 
             if( !$user->hasPermission($item['hasPermission']) ){
                 return false;

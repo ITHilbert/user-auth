@@ -12,7 +12,7 @@ class hasRole implements FilterInterface
 
         if (isset($item['hasRole']) ) {
             if(!Auth::check()) return false;
-            $user =  Auth::user()->load('role');
+            $user =  Auth::user();
             $role =  $item['hasRole'];
 
             //Ausnahmen Admin und Developer
