@@ -11,14 +11,14 @@
         <div class="form-group row mb-2">
             <label for="role_display" class="col-md-4 col-form-label text-md-right">@lang('userauth::role.role')</label>
             <div class="col-md-6">
-               <input-text name="role_display" value="{{ old('role_display', '') }}" onchange="setInternValue()" required />
+               <input-text name="role_display" id="role_display" value="{{ old('role_display', '') }}" onchange="setInternValue()" required />
             </div>
         </div>
 
         <div class="form-group row mb-2">
             <label for="role" class="col-md-4 col-form-label text-md-right">@lang('userauth::role.role_intern')</label>
             <div class="col-md-6">
-               <input-text name="role" value="{{ old('role', '') }}" required />
+               <input-text name="role" id="role" value="{{ old('role', '') }}" required />
             </div>
         </div>
 
@@ -76,10 +76,10 @@
                                     <tbody>
                                         @foreach ($group->getPermisssionsSingle() as $perm)
                                             <tr>
-                                                <th colspan="3" scope="row">{{ $perm->permission_display }}</th>
+                                                <td colspan="3" scope="row">{{ $perm->permission_display }}</td>
                                                 <td colspan="2" class="text-right">
                                                     <checkbox name="permission[{{ $perm->id }}]"
-                                                              value="{{ old('permission['. $perm->id .']' , true) }}">
+                                                              value="{{ $perm->id }}">
                                                     </checkbox>
                                                 </td>
                                             </tr>
