@@ -3,12 +3,17 @@
 namespace ITHilbert\UserAuth\Traits;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use ITHilbert\LaravelKit\Traits\VueComboBox;
 
 trait UserAuth
 {
     use SoftDeletes;
     use VueComboBox;
+
+    private $permissions = array();
+    private $role_name = '';
 
     public function getCbCaptionAttribute(){
         return $this->name;
@@ -47,7 +52,19 @@ trait UserAuth
     }
 
     public function roleName(){
-        return $this->role->role;
+        if( $this->role_name == ''){
+            //Prüfen ob werte bereits in der Session gespeichert sind
+            if( Session::has('role_name') ){
+                //Werte aus der Session holen
+                $this->role_name = Session::get('role_name');
+            }else{
+                $this->role_name = $this->role->role;
+                Session::put('role_name', $this->role_name);
+            }
+        }
+
+        //dd(session('role_name'));
+        return $this->role_name;
     }
 
     /**
@@ -86,16 +103,121 @@ trait UserAuth
         return $this->role->role_display;
     }
 
-    public function hasPermission($permission){
-        return $this->role->hasPermission($permission);
+
+    /**
+     * Prüft ob die Rolle eine bestimmte Permission hat
+     *
+     * @param string $permission
+     * @return boolean
+     */
+    public function hasPermission(string $permission){
+        //Admin darf immer
+        if($this->role_id <= 2){
+            return true;
+        }
+
+        $this->loadPermissions();
+        return in_array($permission, $this->permissions);
     }
 
+
+    /**
+     * Prüft ob die Rolle eine bestimmte Permission hat
+     *
+     * @param string $permission
+     * @return boolean
+     */
     public function hasPermissionOr($permissions){
-        return $this->role->hasPermissionOr($permissions);
+        //Admin darf immer
+        if($this->role_id <= 2){
+            return true;
+        }
+
+        $this->loadPermissions();
+        $permission = explode(',', $permissions);
+
+        foreach( $permission as $perm) {
+            if( in_array(trim($perm), $this->permissions)){
+                return true;
+            }
+        }
+
+        return false;
     }
 
+
+    /**
+     * Prüft ob die Rolle eine bestimmte Permission hat
+     *
+     * @param string $permission
+     * @return boolean
+     */
     public function hasPermissionAnd($permissions){
-        return $this->role->hasPermissionAnd($permissions);
+        //Admin darf immer
+        if($this->role_id <=2){
+            return true;
+        }
+
+        $this->loadPermissions();
+        $permission = explode(',', $permissions);
+
+        foreach( $permission as $perm) {
+            if(!in_array(trim($perm), $this->permissions)){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Lädt die Persissions in die $permissions Variable
+     *
+     * @param boolean $force    true wenn auf jeden Fall die permissions neu geladen werden sollen
+     * @return void
+    */
+    private function loadPermissions($force = false){
+        //Daten auf jeden fall neu Laden
+        if($force == true){
+            //Daten Laden
+            $result = DB::table('permissions')
+                            ->join('role_permission', 'id', '=', 'permission_id')
+                            ->where('role_id' , '=' , $this->role_id)
+                            ->get();
+
+            //Ergebnisse in der Variablen speichern
+            foreach( $result as $row){
+                $this->permissions[] = $row->permission;
+            }
+
+            //Ergebnisse in der Session speichern
+            Session::put('permissions' , $this->permissions);
+
+            return true;
+        }
+
+        //Prüfen ob die Variable noch leer ist
+        if(count($this->permissions) == 0){
+            //Prüfen ob werte bereits in der Session gespeichert sind
+            if( Session::has('permissions') ){
+                //Werte aus der Session holen
+                $this->permissions = Session::get('permissions');
+            }else{
+                //Daten Laden
+                $result = DB::table('permissions')
+                            ->join('role_permission', 'id', '=', 'permission_id')
+                            ->where('role_id' , '=' , $this->role_id)
+                            ->get();
+
+                //Ergebnisse in der Variablen speichern
+                foreach( $result as $row){
+                    $this->permissions[] = $row->permission;
+                }
+
+                //Ergebnisse in der Session speichern
+                Session::put('permissions' , $this->permissions);
+            }
+        }
     }
 
     //Helper
