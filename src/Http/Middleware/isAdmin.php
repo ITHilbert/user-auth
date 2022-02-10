@@ -23,6 +23,6 @@ class isAdmin
             return $next($request);
         }
 
-        return redirect()->route('no-permission');
+        return redirect()->route('no-permission', [$request, $user->id]);
     }
 }

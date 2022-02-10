@@ -26,7 +26,7 @@ class hasPermissionAnd
         //recht prüfen
         foreach ($permissions as $permission) {
             if(!$user->hasPermission($permission)){
-                return redirect()->route('no-permission');
+                return redirect()->route('no-permission', [$request, $user->id]);
             }
         }
 
