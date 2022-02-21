@@ -50,6 +50,20 @@ class Role extends Model
      * @param string $permission
      * @return boolean
      */
+    public function hasPermissionInView($permission){
+        $permission = $this->permissions()->where('permission', $permission)->first();
+        if($permission){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Prüft ob die Rolle eine bestimmte Permission hat
+     *
+     * @param string $permission
+     * @return boolean
+     */
     public function hasPermissionOr($permissions){
         //Admin darf immer
         if($this->role == 'dev' || $this->role == 'admin'){
