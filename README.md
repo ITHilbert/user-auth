@@ -30,7 +30,7 @@ php artisan db:seed --class="ITHilbert\UserAuth\Database\Seeders\DatabaseSeeder"
     App\Menu\Filters\hasPermissionAnd::class,
 ```
 
-### App\User
+### App\Models\User
 ```
 namespace App;
 
